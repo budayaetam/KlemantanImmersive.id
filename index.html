@@ -1,6 +1,14 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-5EC8LEKBX9"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-5EC8LEKBX9');
+</script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>KlemantanImmersive.id · Prototipe</title>
@@ -1204,6 +1212,7 @@ document.querySelectorAll('.uitog').forEach(b=>b.onclick=()=>{ const v=b.closest
 let fadeT=null;
 function autoFade(id){ clearTimeout(fadeT); const v=document.getElementById(id); if(!v) return; v.querySelectorAll('.hint,.anot').forEach(e=>e.classList.remove('fade')); fadeT=setTimeout(()=>v.querySelectorAll('.hint,.anot').forEach(e=>e.classList.add('fade')),7000); }
 function go(name){
+ try{ if(window.gtag&&name) gtag('event','buka_halaman',{halaman:name}); }catch(e){}
  setTimeout(()=>window._bgmSync&&window._bgmSync(),0);
  if(window._pkClose) window._pkClose(); if(window._pkGal) window._pkGal(false);
  if(CATS.some(c=>c.id===name)){ renderKat(name); document.querySelectorAll('.view').forEach(v=>v.classList.toggle('on', v.id==='v-kategori')); setTimeout(()=>reveal('v-kategori'),30); renderNav(name); if(location.hash!=='#'+name) history.replaceState(null,'','#'+name); try{ if(vid && !vid.paused) vid.pause(); }catch(e){} document.getElementById('v-kategori').scrollTop=0; return; }
