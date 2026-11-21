@@ -336,8 +336,6 @@ body.inroom main{top:104px}
 .wb-soon{height:auto;min-height:96px;cursor:default;background:transparent;border:1.5px dashed rgba(29,59,47,.3)}.wb-soon::after{display:none}.wb-soon .wb-tx{color:var(--hutan);padding:18px clamp(20px,4vw,46px)}.wb-soon h3{color:var(--hutan);font-size:20px}.wb-soon p{color:var(--abu)}
 @media(hover:none){.wb-go{opacity:1;transform:none}}
 @media(max-width:640px){.wb{height:auto;min-height:170px}.wb-tx{max-width:100%;padding:20px 20px!important}.wb-g::after{background:linear-gradient(90deg,rgba(10,32,24,.92),rgba(14,46,34,.55))}.wb-k::after{background:linear-gradient(90deg,rgba(8,8,8,.9),rgba(14,12,10,.5))}.wb-go{position:static;align-self:flex-start;margin-top:10px;padding:6px 12px}}
-.devnote{position:fixed;left:12px;right:12px;bottom:12px;z-index:200;display:none;align-items:center;gap:12px;background:rgba(18,40,31,.96);color:#f4ecd8;border:1.5px solid #E3A62F;border-radius:16px;padding:12px 14px;font-size:13.5px;line-height:1.45;box-shadow:0 10px 30px rgba(0,0,0,.35)}
-.devnote.on{display:flex}.devnote b{color:#f3d27a}.devnote i{font-style:normal;font-size:26px}.devnote button{margin-left:auto;flex-shrink:0;border:0;background:#E3A62F;color:#1d3b2f;font-weight:800;border-radius:14px;padding:7px 12px;cursor:pointer}
 .mediabar{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 6px}.mediabar button{border:2px solid var(--emas);background:#fff8e6;color:#4a3410;font-weight:800;font-size:13px;padding:8px 14px;border-radius:20px;cursor:pointer}.mediabar button:hover{background:var(--emas)}
 .bts{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;margin:14px 0}.bts figure{margin:0;border-radius:14px;overflow:hidden;background:#fff}.bts img{width:100%;height:150px;object-fit:cover;display:block}.bts figcaption{font-size:12px;padding:7px 10px;color:var(--abu)}
 .kontak-box{background:#fff;border-radius:18px;padding:18px 20px;margin-top:14px;line-height:1.6}.kontak-box b{display:block;color:var(--hutan)}
@@ -703,8 +701,7 @@ body.inroom main{top:104px}
  <span class="badge">PROTOTIPE</span>
  <div class="crumb" id="crumb"></div>
 </header>
-<div class="devnote" id="devnote" role="status"><i>💻</i><span><b>Lebih nyaman di laptop atau PC.</b> Ruang 3D dan video 360° KlemantanImmersive.id dirancang untuk layar besar. Di ponsel, sebagian tampilan dan kontrol bisa kurang pas.</span><button id="devnoteX">Mengerti</button></div>
-<div class="roombar" id="roombar"><nav id="roomtabs"><button data-go="budaya" data-sec="budaya">Budaya</button><button data-go="ruang3d" data-sec="ruang3d">Jelajah 3D</button><button data-go="video" data-sec="video">Video 360°</button><button data-go="kartu" data-sec="koleksikartu">Koleksi Kartu</button><button data-go="kontak" data-sec="kontak">Kontak</button></nav></div>
+<div class="roombar" id="roombar"><nav id="roomtabs"><button data-go="budaya" data-sec="budaya">Jelajah Budaya!</button><button data-go="ruang3d" data-sec="ruang3d">Jelajah 3D</button><button data-go="video" data-sec="video">Video 360°</button><button data-go="kartu" data-sec="koleksikartu">Koleksi Kartu</button><button data-go="kontak" data-sec="kontak">Kontak</button></nav></div>
 
 <main>
 <!-- BERANDA -->
@@ -745,8 +742,8 @@ body.inroom main{top:104px}
    <div class="cp-proof"><b>Sudah diuji.</b> Pada uji Prototipe 1 <i>Hudoq Universe</i>, sebagian besar responden awalnya tidak mengenal Hudoq. Setelah mencoba, seluruh responden menilai simulasi VR efektif memperkenalkan budaya ini, dengan peningkatan pengetahuan pada ragam topeng, makna budaya, tarian, dan proses pembuatannya (Oktavitrianingtyas, 2025).</div>
   </div>
  </section>
- <div class="wrap">
-  <h2>Pilih koleksi</h2>
+ <div class="wrap" id="jbudaya">
+  <h2>Jelajah Budaya!</h2>
   <p class="sub">Koleksi disusun per suku dan per situs cagar budaya. Koleksi baru kami tambahkan bersama komunitas pemilik budaya.</p>
   <div class="cats" id="cats"></div>
   <div class="mapsec">
@@ -771,7 +768,7 @@ body.inroom main{top:104px}
   <div class="sf-brand"><b>Klemantan<span>Immersive</span>.id</b><p>Platform edukasi imersif warisan budaya Kalimantan Timur.</p>
    <address class="sf-addr"><b class="sf-a1">Sekretariat Budaya Etam</b><b class="sf-a2">CV. Ruang Kreatif Nusantara</b>Jl. KH Harus Nafsi, Perumahan Gemilang 1 Blok P No. 10, RT 23, Kel. Rapak Dalam, Kec. Loa Janan Ilir, Kota Samarinda, Kalimantan Timur</address></div>
   <div class="sf-by"><span class="sf-k">Dibuat oleh</span><b>Budaya Etam</b><a href="https://www.instagram.com/budayaetam/" target="_blank" rel="noopener" class="sf-ig"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="4.2" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="17.4" cy="6.6" r="1.3" fill="currentColor"/></svg>@budayaetam</a></div>
-  <p class="sf-c">© 2026 Budaya Etam · KlemantanImmersive.id · Disarankan dibuka di laptop atau PC</p>
+  <p class="sf-c">© 2026 Budaya Etam · KlemantanImmersive.id</p>
  </div></footer>
 </section>
 
@@ -1059,27 +1056,27 @@ const GRUP = {
  pengganggu:{label:'ROH PENGGANGGU', short:'PENGGANGGU', warna:'#B4432E'}
 };
 const MASKS = [
- {id:'delay', nama:'Hudoq Delay', grup:'penjaga', glb:'delay.mp4', size:14687968, asli:true, pos:[-2.25,0.75],
+ {id:'delay', nama:'Hudoq Delay', grup:'penjaga', glb:'delay-lite.mp4', full:'delay.mp4', fsize:14703072, size:14687968, asli:true, pos:[-2.25,0.75],
   peran:'Roh guntur. Menguasai awan dan menjadi penjaga serta penolong bagi kehidupan manusia.',
   ciri:'Wajah putih dengan pola sulur merah, mata menonjol, bidang hitam bertotol putih, ikat kepala kain merah, mahkota anyaman, dan kostum daun kering yang menjuntai.',
   attr:{kampung:'Dayak Modang, Kalimantan Timur', pemilik:'Koleksi Frans Jiu Luay, Tenggarong', perajin:'Frans Jiu Luay'},
   src:'Model fotogrametri asli dari proyek Hudoq Virtual Museum VR, didanai program Fasilitasi Pemajuan Kebudayaan melalui BPK Wilayah XIV (Kaltim dan Kaltara). Diunggah ke Sketchfab 1 Agustus 2025. <a href="https://sketchfab.com/3d-models/hudoq-delay-f2d007849bb64045a4a2504176c45cde" target="_blank" rel="noopener">Lihat versi resolusi penuh di Sketchfab ↗</a>'},
- {id:'tonggaep', nama:'Hudoq Tong Gaep', grup:'penjaga', glb:'tonggaep.mp4', scale:1.15, size:7322780, asli:true, pos:[0,1.0],
+ {id:'tonggaep', nama:'Hudoq Tong Gaep', grup:'penjaga', glb:'tonggaep-lite.mp4', full:'tonggaep.mp4', fsize:7322780, scale:1.15, size:7322780, asli:true, pos:[0,1.0],
   peran:'Roh kekuatan dari gunung tertinggi, Epae Legean. Mampu melihat dan menolong manusia. Pemimpin Hudoq yang menari di barisan terdepan.',
   ciri:'Mahkota segitiga hijau dengan bilah tegak di sekelilingnya, ikat kepala anyaman merah, kuning, dan biru, wajah putih dengan bidang hitam bertotol putih, rahang menonjol, dan kostum serat cokelat.',
   attr:{kampung:'Dayak Modang, Kalimantan Timur', pemilik:'Koleksi Frans Jiu Luay, Tenggarong', perajin:'Frans Jiu Luay'},
   src:'Model fotogrametri asli dari proyek Hudoq Virtual Museum VR, didanai program Fasilitasi Pemajuan Kebudayaan melalui BPK Wilayah XIV (Kaltim dan Kaltara). <a href="https://sketchfab.com/budayaetam/models" target="_blank" rel="noopener">Lihat koleksi resolusi penuh di Sketchfab ↗</a>'},
- {id:'ewoae', nama:'Hudoq Ewoae', grup:'penjaga', glb:'ewoae.mp4', size:5014760, asli:true, pos:[-4.5,0.1],
+ {id:'ewoae', nama:'Hudoq Ewoae', grup:'penjaga', glb:'ewoae-lite.mp4', full:'ewoae.mp4', fsize:5014760, size:5014760, asli:true, pos:[-4.5,0.1],
   peran:'Roh babi. Roh hutan belantara yang berperan dalam kehidupan manusia.',
   ciri:'Moncong hitam panjang, taring kuning melengkung berpilin, bidang hitam bertotol putih di dahi, wajah putih, ikat kepala merah, mahkota anyaman jingga, dan kostum serat cokelat.',
   attr:{kampung:'Dayak Modang, Kalimantan Timur', pemilik:'Koleksi Frans Jiu Luay, Tenggarong', perajin:'Frans Jiu Luay'},
   src:'Model fotogrametri asli dari proyek Hudoq Virtual Museum VR, didanai program Fasilitasi Pemajuan Kebudayaan melalui BPK Wilayah XIV (Kaltim dan Kaltara). <a href="https://sketchfab.com/budayaetam/models" target="_blank" rel="noopener">Lihat koleksi resolusi penuh di Sketchfab ↗</a>'},
- {id:'nyehae', nama:'Hudoq Nyehae', grup:'penjaga', glb:'nyehae.mp4', size:12130440, asli:true, pos:[2.25,0.75],
+ {id:'nyehae', nama:'Hudoq Nyehae', grup:'penjaga', glb:'nyehae-lite.mp4', full:'nyehae.mp4', fsize:12130440, size:12130440, asli:true, pos:[2.25,0.75],
   peran:'Roh burung elang, kekuatan makhluk dua alam. Mampu menembus cakrawala dan alam baka untuk menolong manusia yang tersesat di alam roh.',
   ciri:'Paruh panjang yang menonjol ke depan, bidang hitam bertotol putih di sekitar mata, ikat kepala kuning, mahkota anyaman, dan kostum serat cokelat yang menjuntai.',
   attr:{kampung:'Dayak Modang, Kalimantan Timur', pemilik:'Koleksi Frans Jiu Luay, Tenggarong', perajin:'Frans Jiu Luay'},
   src:'Model fotogrametri asli dari proyek Hudoq Virtual Museum VR, didanai program Fasilitasi Pemajuan Kebudayaan melalui BPK Wilayah XIV (Kaltim dan Kaltara). <a href="https://sketchfab.com/budayaetam/models" target="_blank" rel="noopener">Lihat koleksi resolusi penuh di Sketchfab ↗</a>'},
- {id:'menlieu', nama:'Hudoq Menlieu', grup:'pengganggu', glb:'menlieu.mp4', size:4950276, asli:true, pos:[4.5,0.1],
+ {id:'menlieu', nama:'Hudoq Menlieu', grup:'pengganggu', glb:'menlieu-lite.mp4', full:'menlieu.mp4', fsize:4950276, size:4950276, asli:true, pos:[4.5,0.1],
   peran:'Roh pengganggu kehidupan manusia. Jelmaan perilaku manusia yang melanggar norma umum dan adat istiadat. Satu-satunya roh pengganggu di antara 11 karakter Hudoq Dayak Modang.',
   ciri:'Topeng cokelat dari pelepah pinang dengan wajah memanjang dan dagu meruncing, bibir merah, mata putih kecil, jahitan tali di dahi, dan rambut serat kasar. Tanpa aksesoris Hudoq lainnya.',
   attr:{kampung:'Dayak Modang, Kalimantan Timur', pemilik:'Koleksi Frans Jiu Luay, Tenggarong', perajin:'Frans Jiu Luay'},
@@ -1155,14 +1152,14 @@ function renderKat(cid){ const c=CATS.find(x=>x.id===cid); curCat=cid; const w=d
  c.rooms.forEach(r=>{ const R=ROOMS[r]; h+=`<div class="rm" data-go="${R.tabs[0][0]}"><div class="im" style="${R.img?`background-image:url(${R.img})`:'background:linear-gradient(150deg,#6b5a44,#3a2f24)'}"></div><div class="tx"><h3>${R.nama}</h3><p>${R.sub}. ${R.desc}</p><div class="mt">${R.media.map(m=>`<span>${m}</span>`).join('')}</div></div></div>`; });
  h+=`<div class="rm soon"><div class="im" style="background:repeating-linear-gradient(45deg,#e9e0cc,#e9e0cc 10px,#f1ead9 10px,#f1ead9 20px)"></div><div class="tx"><h3>Segera hadir</h3><p>${c.rooms.length?'Ruang budaya berikutnya':'Koleksi '+c.nama}, disiapkan bersama komunitas pemilik budaya.</p></div></div></div>`;
  h+=(c.about||''); w.innerHTML=h; }
-const SEC={budaya:'budaya',ruang3d:'ruang3d',video:'video',koleksikartu:'koleksikartu',kontak:'kontak',jelajah:'ruang3d',gua3d:'ruang3d',karim3d:'ruang3d',v360:'video',k360:'video',m360:'video',kartu:'koleksikartu'};
-const SECNAMA={budaya:'Budaya',ruang3d:'Jelajah 3D',video:'Video 360°',koleksikartu:'Koleksi Kartu',kontak:'Kontak'}; const SECGO={koleksikartu:'kartu'};
+const SEC={beranda:'budaya',budaya:'budaya',ruang3d:'ruang3d',video:'video',koleksikartu:'koleksikartu',kontak:'kontak',jelajah:'ruang3d',gua3d:'ruang3d',karim3d:'ruang3d',v360:'video',k360:'video',m360:'video',kartu:'koleksikartu'};
+const SECNAMA={budaya:'Jelajah Budaya!',ruang3d:'Jelajah 3D',video:'Video 360°',koleksikartu:'Koleksi Kartu',kontak:'Kontak'}; const SECGO={koleksikartu:'kartu'};
 const LEAF={jelajah:'Hutan Hudoq',gua3d:'Ceruk Tewet',karim3d:'Ceruk Karim',v360:'Hudoq',k360:'Karst Sangkulirang',m360:'Maestro Hudoq',kartu:'Hudoq'};
 function renderNav(name){
  document.body.classList.add('inroom');
  const room=VIEWROOM[name]; const cr=document.getElementById('crumb'); let h='';
  const sec=SEC[name]||(room||CATS.some(c=>c.id===name)?'budaya':null);
- if(sec){ h+=`<button data-go="${SECGO[sec]||sec}">${SECNAMA[sec]}</button>`;
+ if(sec&&name!=='beranda'){ h+=`<button data-go="${SECGO[sec]||sec}">${SECNAMA[sec]}</button>`;
   if(LEAF[name]) h+=`<span class="sep">›</span><button class="catname" style="color:var(--emas)">${LEAF[name]}</button>`;
   else if(sec==='budaya'){ const catId=room?ROOMS[room].cat:(CATS.some(c=>c.id===name)?name:null); if(catId){ const c=CATS.find(x=>x.id===catId); h+=`<span class="sep">›</span><button class="catname" data-go="${c.id}">${c.nama}</button>`; if(room) h+=`<span class="sep">›</span><button class="catname" style="color:var(--emas)">${ROOMS[room].nama}</button>`; } } }
  cr.innerHTML=h;
@@ -1171,11 +1168,11 @@ function renderNav(name){
 const HUBS={
  budaya:{k:'MENU',t:'Budaya',d:'Pilih suku atau cagar budaya Kalimantan Timur. Setiap halaman budaya berisi kisah, makna, dan pintasan ke ruang Jelajah 3D atau Video 360° miliknya.',
   items:()=>CATS.map(c=>({go:c.id,img:c.foto,t:c.nama,d:c.desc,tags:[c.rooms.length+' ruang']}))},
- ruang3d:{wide:1,k:'MENU',t:'Jelajah 3D',d:'Semua ruang virtual interaktif KlemantanImmersive.id. Masuk, berjalan, dan klik titik informasi di setiap ruang. Disarankan dibuka di laptop atau PC.',
+ ruang3d:{wide:1,k:'MENU',t:'Jelajah 3D',d:'Semua ruang virtual interaktif KlemantanImmersive.id. Masuk, berjalan, dan klik titik informasi di setiap ruang.',
   items:()=>[{go:'jelajah',img:'img-hutan3d.jpg',w:'img-wide-hutan.jpg',tone:'g',cta:'Masuk ruang',t:'Hutan Hudoq',d:'Hutan adat Dayak Modang dengan topeng Hudoq hasil fotogrametri dan Hudoq raksasa.',tags:['Suku Dayak','3D']},
    {go:'gua3d',img:'img-sangku-cover.jpg',w:'img-wide-tewet.jpg',tone:'k',cta:'Masuk ruang',t:'Ceruk Tewet',d:'Ceruk cap tangan di Karst Sangkulirang-Mangkalihat.',tags:['Cagar Budaya','Ruang 360°']},
    {go:'karim3d',img:'img-karim-cover.jpg',w:'img-wide-karim.jpg',tone:'k',cta:'Masuk ruang',t:'Ceruk Karim',d:'Relung sempit dengan motif sarang lebah dan tapir.',tags:['Cagar Budaya','Ruang 360°']}],soon:'Ruang budaya berikutnya'},
- video:{wide:1,k:'MENU',t:'Video 360°',d:'Semua video 360° dalam satu tempat. Seret layar untuk melihat ke segala arah. Untuk pengalaman imersif maksimal, gunakan kacamata VR dan tonton melalui YouTube. Disarankan dibuka di laptop atau PC.',
+ video:{wide:1,k:'MENU',t:'Video 360°',d:'Semua video 360° dalam satu tempat. Seret layar untuk melihat ke segala arah. Untuk pengalaman imersif maksimal, gunakan kacamata VR dan tonton melalui YouTube.',
   items:()=>[{go:'v360',img:'hero-tonggaep.jpg',w:'img-wide-v-hudoq.jpg',tone:'g',cta:'Putar video',t:'Hudoq',d:'Virtual Experience Hudoq 360°, cuplikan 60 detik.',tags:['Suku Dayak']},
    {go:'k360',img:'img-sangku-tali.jpg',w:'img-wide-v-karst.jpg',tone:'k',cta:'Putar video',t:'Karst Sangkulirang',d:'Menyusuri sungai dan karst menuju ceruk cap tangan. Dua episode di YouTube.',tags:['Cagar Budaya']},
    {go:'m360',img:'img-pk-maestro.jpg',w:'img-wide-v-maestro.jpg',tone:'g',cta:'Putar video',t:'Maestro Hudoq',d:'Frans Jiu Luay, perajin topeng Hudoq, dalam video 360°.',tags:['Suku Dayak']}],soon:'Video 360° berikutnya'},
@@ -1211,6 +1208,7 @@ function go(name){
  if(window._pkClose) window._pkClose(); if(window._pkGal) window._pkGal(false);
  if(CATS.some(c=>c.id===name)){ renderKat(name); document.querySelectorAll('.view').forEach(v=>v.classList.toggle('on', v.id==='v-kategori')); setTimeout(()=>reveal('v-kategori'),30); renderNav(name); if(location.hash!=='#'+name) history.replaceState(null,'','#'+name); try{ if(vid && !vid.paused) vid.pause(); }catch(e){} document.getElementById('v-kategori').scrollTop=0; return; }
  if(name==='s360') name='k360'; if(name==='ritus'||name==='kuis') name='hudoq'; if(name==='koleksikartu') name='kartu';
+ if(name==='budaya'){ go('beranda'); setTimeout(()=>{ const c=document.getElementById('jbudaya'); if(c) c.scrollIntoView({behavior:'smooth',block:'start'}); },350); return; }
  if(HUBS[name]){ renderHub(name); document.querySelectorAll('.view').forEach(v=>v.classList.toggle('on', v.id==='v-kategori')); setTimeout(()=>reveal('v-kategori'),30); renderNav(name); const vk=document.getElementById('v-kategori'); if(vk) vk.scrollTop=0; if(location.hash!=='#'+name) history.replaceState(null,'','#'+name); try{ if(vid && !vid.paused) vid.pause(); }catch(e){} return; }
  if(!views[name]||name==='kategori') name='beranda';
  if(name!=='v360'&&name!=='k360'&&name!=='m360'){ try{ if(vid && !vid.paused) vid.pause(); }catch(e){} }
@@ -1229,7 +1227,6 @@ function go(name){
  if(name==='v360'||name==='k360'||name==='m360'){ const vk={v360:'hudoq',k360:'sangku',m360:'maestro'}[name]; window._v3want={hudoq:'hudoq360.mp4',sangku:'sangku360.mp4',maestro:'maestro360.mp4'}[vk]; initPano(); window._v3show&&window._v3show(vk); }
  window.dispatchEvent(new Event('resize'));
 }
-(function(){ const n=document.getElementById('devnote'); if(!n) return; const small=Math.min(innerWidth,innerHeight)<700||/Mobi|Android|iPhone|iPad/i.test(navigator.userAgent); let seen=false; try{ seen=sessionStorage.getItem('devnote')==='1'; }catch(e){} if(small&&!seen) setTimeout(()=>n.classList.add('on'),1200); document.getElementById('devnoteX').onclick=()=>{ n.classList.remove('on'); try{ sessionStorage.setItem('devnote','1'); }catch(e){} }; })();
 document.addEventListener('click',e=>{ const el=e.target.closest('[data-go]'); if(el && !el.classList.contains('dis')){ go(el.dataset.go); } });
 window.addEventListener('hashchange',()=>go(location.hash.slice(1)));
 
@@ -1719,9 +1716,10 @@ function loadGLB(url,g,m,onProg,onDone){
   onDone(true);
  },onProg,()=>onDone(false));
 }
-function upgradeFull(m,holder){
+function upgradeFull(m,holder,silent){
  const g=holder.userData.mask; if(!m.full||g.userData.fullState) return;
  g.userData.fullState='loading';
+ if(silent){ return loadGLB(m.full,g,m,()=>{},ok=>{ g.userData.fullState=ok?'done':null; window._shadowDirty=2; if(ok&&m.id==='tonggaep'&&window._giantSwap) setTimeout(window._giantSwap,50); if(typeof silent==='function') silent(); }); }
  const bar=document.getElementById('loadbar'), txt=document.getElementById('loadtxt'), fill=document.getElementById('loadfill');
  bar.classList.remove('done'); fill.style.width='0%'; txt.textContent=`Memuat detail penuh ${m.nama}… 0%`;
  loadGLB(m.full,g,m,e=>{ const pct=Math.min(100,Math.round(e.loaded/(e.total||m.fsize)*100)); fill.style.width=pct+'%'; txt.textContent=`Memuat detail penuh ${m.nama}… ${pct}%`; },
@@ -2062,11 +2060,11 @@ function initScene(){
      G.updateMatrixWorld(true); const hb=new THREE.Box3(); heads.forEach(m=>hb.union(new THREE.Box3().setFromObject(m)));
      // ganti kepala dengan topeng Tong Gaep hasil fotogrametri
      const swap=()=>{ const H=maskGroups.find(x=>x.userData.id==='tonggaep'); const mdl=H&&H.userData.mask.userData.model; if(!mdl){ setTimeout(swap,800); return; }
-       heads.forEach(m=>m.visible=false); const cl=mdl.clone(true); const w=new THREE.Group(); w.add(cl); scene.add(w); w.updateMatrixWorld(true);
+       heads.forEach(m=>m.visible=false); if(window._giantHead){ scene.remove(window._giantHead); } const cl=mdl.clone(true); const w=new THREE.Group(); w.add(cl); scene.add(w); w.updateMatrixWorld(true);
        const mb=new THREE.Box3().setFromObject(cl), ms=mb.getSize(new THREE.Vector3()), mc=mb.getCenter(new THREE.Vector3());
        const hs=hb.getSize(new THREE.Vector3()), hc=hb.getCenter(new THREE.Vector3()); const k2=(hs.y*1.18)/ms.y;
        w.scale.setScalar(k2); w.position.set(hc.x-mc.x*k2, hb.min.y-hs.y*0.22-mb.min.y*k2, hc.z-mc.z*k2+0.05); window._giantHead=w; window._shadowDirty=2; };
-     swap();
+     swap(); window._giantSwap=swap;
      // cahaya bersinar dari atas
      const sp=new THREE.SpotLight(0xfff1d0,60,26,0.34,0.55,1.2); sp.position.set(0,18,-5.6); const tg=new THREE.Object3D(); tg.position.set(0,4.5,-8.6); scene.add(tg); sp.target=tg; scene.add(sp); window._giantSpot=sp;
      const rc=document.createElement('canvas'); rc.width=64; rc.height=256; const rx2=rc.getContext('2d'); const gr=rx2.createLinearGradient(0,0,0,256); gr.addColorStop(0,'rgba(255,236,190,0)'); gr.addColorStop(.25,'rgba(255,236,190,.75)'); gr.addColorStop(1,'rgba(255,236,190,0)'); rx2.fillStyle=gr; rx2.fillRect(0,0,64,256);
@@ -2220,6 +2218,7 @@ function initScene(){
   }
   if(window._pkCards){ const fv=F?F.v:0; window._pkCards.forEach(g=>{ const u=g.userData; g.position.y=u.y0+Math.sin(t*0.9+u.ph*0.25)*0.05; const dx=camera.position.x-g.position.x, dz=camera.position.z-g.position.z; g.rotation.y=Math.atan2(dx,dz);
     const hv=window._pkHov===g?1:0; u.hov+=(hv-u.hov)*Math.min(1,dt*8); u.s+=((window._pkShow?1:0)-u.s)*Math.min(1,dt*5); u.m.scale.setScalar((0.001+u.s)*(1+0.08*u.hov)); u.glow.material.opacity=(0.18+0.5*u.hov)*(1-fv)*(0.8+0.2*Math.sin(t*2+u.ph)); u.m.material.opacity=(1-fv*0.92)*u.s; g.visible=fv<0.98&&u.s>0.02; }); }
+  if(!window._upQ&&window._revealT&&performance.now()-window._revealT>4000&&maskGroups.length){ window._upQ=1; const q=maskGroups.slice().sort((a,b)=>(a.userData.id==='tonggaep'?-1:0)-(b.userData.id==='tonggaep'?-1:0)); const nx=()=>{ const h=q.shift(); if(!h) return; const m=MASKS.find(x=>x.id===h.userData.id); if(m&&m.full&&!h.userData.mask.userData.fullState) upgradeFull(m,h,nx); else nx(); }; nx(); }
   if(window._padi&&!window._padi.userData.done&&window._revealT){ const im=window._padi, el=(performance.now()-window._revealT)/1000; if(el>0){ const B=im.userData.base, o=window._po||(window._po=new THREE.Object3D()); let all=true;
     for(let k=0;k<B.length;k++){ const b=B[k]; if(b[6]===undefined){ const dx=b[0]-camera.position.x, dz=b[1]-camera.position.z; if(dx*dx+dz*dz<(9+b[5]*4)*(9+b[5]*4)) b[6]=el; } let g=b[6]===undefined?0:Math.min(1,Math.max(0,(el-b[6])/1.4)); if(g<1) all=false; g=1-Math.pow(1-g,3); o.position.set(b[0],0,b[1]); o.rotation.set(0,b[2]+(1-g)*0.6,0); const w=b[3]*(0.55+0.45*g); o.scale.set(w,Math.max(0.001,b[4]*g),w); o.updateMatrix(); im.setMatrixAt(k,o.matrix); }
     im.instanceMatrix.needsUpdate=true; im.boundingSphere=null; if(all){ im.userData.done=true; im.boundingSphere=null; im.boundingBox=null; } } }
