@@ -335,7 +335,9 @@ body.inroom main{top:104px}
 .wb:hover .wb-go{opacity:1;transform:none}
 .wb-soon{height:auto;min-height:96px;cursor:default;background:transparent;border:1.5px dashed rgba(29,59,47,.3)}.wb-soon::after{display:none}.wb-soon .wb-tx{color:var(--hutan);padding:18px clamp(20px,4vw,46px)}.wb-soon h3{color:var(--hutan);font-size:20px}.wb-soon p{color:var(--abu)}
 @media(hover:none){.wb-go{opacity:1;transform:none}}
-@media(max-width:640px){.wb-tx{max-width:100%}.wb-g::after{background:linear-gradient(90deg,rgba(10,32,24,.92),rgba(14,46,34,.55))}.wb-k::after{background:linear-gradient(90deg,rgba(8,8,8,.9),rgba(14,12,10,.5))}.wb-go{position:static;align-self:flex-start;margin-top:10px;padding:6px 12px}}
+@media(max-width:640px){.wb{height:auto;min-height:170px}.wb-tx{max-width:100%;padding:20px 20px!important}.wb-g::after{background:linear-gradient(90deg,rgba(10,32,24,.92),rgba(14,46,34,.55))}.wb-k::after{background:linear-gradient(90deg,rgba(8,8,8,.9),rgba(14,12,10,.5))}.wb-go{position:static;align-self:flex-start;margin-top:10px;padding:6px 12px}}
+.devnote{position:fixed;left:12px;right:12px;bottom:12px;z-index:200;display:none;align-items:center;gap:12px;background:rgba(18,40,31,.96);color:#f4ecd8;border:1.5px solid #E3A62F;border-radius:16px;padding:12px 14px;font-size:13.5px;line-height:1.45;box-shadow:0 10px 30px rgba(0,0,0,.35)}
+.devnote.on{display:flex}.devnote b{color:#f3d27a}.devnote i{font-style:normal;font-size:26px}.devnote button{margin-left:auto;flex-shrink:0;border:0;background:#E3A62F;color:#1d3b2f;font-weight:800;border-radius:14px;padding:7px 12px;cursor:pointer}
 .mediabar{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 6px}.mediabar button{border:2px solid var(--emas);background:#fff8e6;color:#4a3410;font-weight:800;font-size:13px;padding:8px 14px;border-radius:20px;cursor:pointer}.mediabar button:hover{background:var(--emas)}
 .bts{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;margin:14px 0}.bts figure{margin:0;border-radius:14px;overflow:hidden;background:#fff}.bts img{width:100%;height:150px;object-fit:cover;display:block}.bts figcaption{font-size:12px;padding:7px 10px;color:var(--abu)}
 .kontak-box{background:#fff;border-radius:18px;padding:18px 20px;margin-top:14px;line-height:1.6}.kontak-box b{display:block;color:var(--hutan)}
@@ -701,6 +703,7 @@ body.inroom main{top:104px}
  <span class="badge">PROTOTIPE</span>
  <div class="crumb" id="crumb"></div>
 </header>
+<div class="devnote" id="devnote" role="status"><i>💻</i><span><b>Lebih nyaman di laptop atau PC.</b> Ruang 3D dan video 360° KlemantanImmersive.id dirancang untuk layar besar. Di ponsel, sebagian tampilan dan kontrol bisa kurang pas.</span><button id="devnoteX">Mengerti</button></div>
 <div class="roombar" id="roombar"><nav id="roomtabs"><button data-go="budaya" data-sec="budaya">Budaya</button><button data-go="ruang3d" data-sec="ruang3d">Jelajah 3D</button><button data-go="video" data-sec="video">Video 360°</button><button data-go="kartu" data-sec="koleksikartu">Koleksi Kartu</button><button data-go="kontak" data-sec="kontak">Kontak</button></nav></div>
 
 <main>
@@ -768,7 +771,7 @@ body.inroom main{top:104px}
   <div class="sf-brand"><b>Klemantan<span>Immersive</span>.id</b><p>Platform edukasi imersif warisan budaya Kalimantan Timur.</p>
    <address class="sf-addr"><b class="sf-a1">Sekretariat Budaya Etam</b><b class="sf-a2">CV. Ruang Kreatif Nusantara</b>Jl. KH Harus Nafsi, Perumahan Gemilang 1 Blok P No. 10, RT 23, Kel. Rapak Dalam, Kec. Loa Janan Ilir, Kota Samarinda, Kalimantan Timur</address></div>
   <div class="sf-by"><span class="sf-k">Dibuat oleh</span><b>Budaya Etam</b><a href="https://www.instagram.com/budayaetam/" target="_blank" rel="noopener" class="sf-ig"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="4.2" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="17.4" cy="6.6" r="1.3" fill="currentColor"/></svg>@budayaetam</a></div>
-  <p class="sf-c">© 2026 Budaya Etam · KlemantanImmersive.id</p>
+  <p class="sf-c">© 2026 Budaya Etam · KlemantanImmersive.id · Disarankan dibuka di laptop atau PC</p>
  </div></footer>
 </section>
 
@@ -1168,11 +1171,11 @@ function renderNav(name){
 const HUBS={
  budaya:{k:'MENU',t:'Budaya',d:'Pilih suku atau cagar budaya Kalimantan Timur. Setiap halaman budaya berisi kisah, makna, dan pintasan ke ruang Jelajah 3D atau Video 360° miliknya.',
   items:()=>CATS.map(c=>({go:c.id,img:c.foto,t:c.nama,d:c.desc,tags:[c.rooms.length+' ruang']}))},
- ruang3d:{wide:1,k:'MENU',t:'Jelajah 3D',d:'Semua ruang virtual interaktif KlemantanImmersive.id. Masuk, berjalan, dan klik titik informasi di setiap ruang.',
+ ruang3d:{wide:1,k:'MENU',t:'Jelajah 3D',d:'Semua ruang virtual interaktif KlemantanImmersive.id. Masuk, berjalan, dan klik titik informasi di setiap ruang. Disarankan dibuka di laptop atau PC.',
   items:()=>[{go:'jelajah',img:'img-hutan3d.jpg',w:'img-wide-hutan.jpg',tone:'g',cta:'Masuk ruang',t:'Hutan Hudoq',d:'Hutan adat Dayak Modang dengan topeng Hudoq hasil fotogrametri dan Hudoq raksasa.',tags:['Suku Dayak','3D']},
    {go:'gua3d',img:'img-sangku-cover.jpg',w:'img-wide-tewet.jpg',tone:'k',cta:'Masuk ruang',t:'Ceruk Tewet',d:'Ceruk cap tangan di Karst Sangkulirang-Mangkalihat.',tags:['Cagar Budaya','Ruang 360°']},
    {go:'karim3d',img:'img-karim-cover.jpg',w:'img-wide-karim.jpg',tone:'k',cta:'Masuk ruang',t:'Ceruk Karim',d:'Relung sempit dengan motif sarang lebah dan tapir.',tags:['Cagar Budaya','Ruang 360°']}],soon:'Ruang budaya berikutnya'},
- video:{wide:1,k:'MENU',t:'Video 360°',d:'Semua video 360° dalam satu tempat. Seret layar untuk melihat ke segala arah. Untuk pengalaman imersif maksimal, gunakan kacamata VR dan tonton melalui YouTube.',
+ video:{wide:1,k:'MENU',t:'Video 360°',d:'Semua video 360° dalam satu tempat. Seret layar untuk melihat ke segala arah. Untuk pengalaman imersif maksimal, gunakan kacamata VR dan tonton melalui YouTube. Disarankan dibuka di laptop atau PC.',
   items:()=>[{go:'v360',img:'hero-tonggaep.jpg',w:'img-wide-v-hudoq.jpg',tone:'g',cta:'Putar video',t:'Hudoq',d:'Virtual Experience Hudoq 360°, cuplikan 60 detik.',tags:['Suku Dayak']},
    {go:'k360',img:'img-sangku-tali.jpg',w:'img-wide-v-karst.jpg',tone:'k',cta:'Putar video',t:'Karst Sangkulirang',d:'Menyusuri sungai dan karst menuju ceruk cap tangan. Dua episode di YouTube.',tags:['Cagar Budaya']},
    {go:'m360',img:'img-pk-maestro.jpg',w:'img-wide-v-maestro.jpg',tone:'g',cta:'Putar video',t:'Maestro Hudoq',d:'Frans Jiu Luay, perajin topeng Hudoq, dalam video 360°.',tags:['Suku Dayak']}],soon:'Video 360° berikutnya'},
@@ -1226,6 +1229,7 @@ function go(name){
  if(name==='v360'||name==='k360'||name==='m360'){ const vk={v360:'hudoq',k360:'sangku',m360:'maestro'}[name]; window._v3want={hudoq:'hudoq360.mp4',sangku:'sangku360.mp4',maestro:'maestro360.mp4'}[vk]; initPano(); window._v3show&&window._v3show(vk); }
  window.dispatchEvent(new Event('resize'));
 }
+(function(){ const n=document.getElementById('devnote'); if(!n) return; const small=Math.min(innerWidth,innerHeight)<700||/Mobi|Android|iPhone|iPad/i.test(navigator.userAgent); let seen=false; try{ seen=sessionStorage.getItem('devnote')==='1'; }catch(e){} if(small&&!seen) setTimeout(()=>n.classList.add('on'),1200); document.getElementById('devnoteX').onclick=()=>{ n.classList.remove('on'); try{ sessionStorage.setItem('devnote','1'); }catch(e){} }; })();
 document.addEventListener('click',e=>{ const el=e.target.closest('[data-go]'); if(el && !el.classList.contains('dis')){ go(el.dataset.go); } });
 window.addEventListener('hashchange',()=>go(location.hash.slice(1)));
 
