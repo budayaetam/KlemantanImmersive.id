@@ -207,6 +207,8 @@ nav button i{font-style:normal;margin-right:5px}
 #v-jelajah.gua-on .wsw button.on{background:#9b3a22;color:#fff}
 .gua{position:absolute;inset:0;z-index:10;background:#140a06;overflow:hidden;touch-action:none}
 .gua[hidden]{display:none}
+.gua.sng{background:#8fa38a}.sng-load{background:radial-gradient(ellipse at 50% 40%,#5d7550,#1d2a18)}#sngHS{z-index:2;width:34px;height:34px;margin:-17px 0 0 -17px;font-size:15px;font-style:italic;font-family:Georgia,serif;background:rgba(255,255,255,.22);border:2px solid #fff;backdrop-filter:blur(4px);animation:jb 2s ease-in-out infinite}.gua.sng.focus #sngHS{opacity:0;pointer-events:none}
+
 .gua canvas{width:100%;height:100%;display:block;cursor:grab}.gua canvas:active{cursor:grabbing}
 .gua::after{content:"";position:absolute;inset:0;pointer-events:none;z-index:1;background:radial-gradient(ellipse 30% 36% at 50% 50%,rgba(0,0,0,0) 55%,rgba(8,3,1,.74) 100%);opacity:0;transition:opacity .6s ease}
 .gua.focus::after{opacity:1}
@@ -947,7 +949,7 @@ body.inroom main{top:104px}
  <label class="envload">⬆ Muat lingkungan Blender (.glb)<input type="file" accept=".glb,.gltf" id="envIn"></label>
  <div class="fogcover" id="fogcover"><div class="fc-in"><div class="fc-t">Bersiap memasuki hutan Hudoq</div><div class="fc-s" id="fc-s">Menyiapkan topeng Hudoq… 0%</div><div class="fc-track"><i id="fc-fill"></i></div></div></div>
  <div class="loadbar done" id="loadbar"><span id="loadtxt">Memuat model 3D asli… 0%</span><div class="track"><i id="loadfill"></i></div></div>
- <div class="wsw" id="wsw"><button class="on" data-w="jelajah">🌳 Hutan Hudoq</button><button data-w="gua3d">✋ Ceruk Tewet</button><button data-w="karim3d">✋ Ceruk Karim</button></div>
+ <div class="wsw" id="wsw"><button class="on" data-w="jelajah">🌳 Hutan Hudoq</button><button data-w="gua3d">✋ Ceruk Tewet</button><button data-w="karim3d">✋ Ceruk Karim</button><button data-w="sarok3d">🛶 Gubang Sarok</button></div>
  <div class="gua" id="gua" hidden>
   <canvas id="guaC"></canvas>
   <div id="guaHS"></div>
@@ -956,6 +958,14 @@ body.inroom main{top:104px}
   <div class="gua-mv"><button data-mv="l" aria-label="Geser kiri">◀</button><button data-mv="f" aria-label="Maju">▲</button><button data-mv="b" aria-label="Mundur">▼</button><button data-mv="r" aria-label="Geser kanan">▶</button></div>
   <div class="pn-card gua-card" id="guaCard" hidden><button class="x" id="guaX" aria-label="Tutup">✕</button><b id="guaT"></b><p id="guaP"></p><small id="guaS"></small></div>
   <div class="gua-load" id="guaLoad"><div><b id="guaLoadT">Memasuki Ceruk Tewet…</b><span id="guaPct">0%</span></div></div>
+ </div>
+  <div class="gua sng" id="sng" hidden>
+  <canvas id="sngC"></canvas>
+  <button class="pn-hs sng-i" id="sngHS" aria-label="Tentang Gubang Sarok">i</button>
+  <div class="gua-cap"><b>Gubang Sarok di aliran sungai</b><span>Model 3D hasil fotogrametri. Seret untuk melihat ke segala arah, gulir untuk mendekat, tombol panah atau W A S D untuk bergerak di atas sungai. Klik tombol (i) di atas perahu.</span></div>
+  <div class="gua-mv"><button data-mv="l" aria-label="Geser kiri">◀</button><button data-mv="f" aria-label="Maju">▲</button><button data-mv="b" aria-label="Mundur">▼</button><button data-mv="r" aria-label="Geser kanan">▶</button></div>
+  <div class="pn-card gua-card" id="sngCard" hidden><button class="x" id="sngX" aria-label="Tutup">✕</button><b>Gubang Sarok</b><p>Model 3D perahu Gubang Sarok hasil pemindaian fotogrametri, ditempatkan di aliran sungai hutan hujan. Kisah, bahan, dan fungsi perahu ini sedang dilengkapi bersama narasumber.</p><small>Model 3D: fotogrametri. Lingkungan sungai: ilustrasi 3D.</small></div>
+  <div class="gua-load sng-load" id="sngLoad"><div><b>Menyusuri sungai…</b><span id="sngPct">0%</span></div></div>
  </div>
  <div class="gua-cap hcap"><b>Hutan Hudoq, Dayak Modang</b><span>Seret untuk melihat, gulir untuk mendekat, tombol panah atau W A S D untuk melangkah. Klik topeng untuk membuka kartu makna, atau tombol (i) di tubuh Hudoq raksasa untuk Pengetahuan Hudoq.</span></div>
  <button class="jump" id="jumpC" title="Langsung ke tengah lingkaran Hudoq">⇡ Langsung ke tengah</button>
@@ -1093,7 +1103,7 @@ const MASKS = [
 const ATRIBUSI = {kampung:'Dayak Modang, Kalimantan Timur', pemilik:'Koleksi Frans Jiu Luay, Tenggarong', perajin:'Frans Jiu Luay'};
 
 /* ---------- NAVIGASI ---------- */
-const views = {m360:'v-360',karim3d:'v-jelajah',erau:'v-ruang',sandima:'v-ruang',nondoi:'v-ruang',masjid:'v-ruang',yupa:'v-ruang',beranda:'v-beranda', kategori:'v-kategori', hudoq:'v-hudoq', jelajah:'v-jelajah', gua3d:'v-jelajah', k360:'v-360', kartu:'v-kartu', ritus:'v-ritus', v360:'v-360', kuis:'v-kuis', sangkulirang:'v-sangkulirang', s360:'v-s360'};
+const views = {m360:'v-360',karim3d:'v-jelajah',erau:'v-ruang',sandima:'v-ruang',nondoi:'v-ruang',masjid:'v-ruang',yupa:'v-ruang',beranda:'v-beranda', kategori:'v-kategori', hudoq:'v-hudoq', jelajah:'v-jelajah', gua3d:'v-jelajah', sarok3d:'v-jelajah', k360:'v-360', kartu:'v-kartu', ritus:'v-ritus', v360:'v-360', kuis:'v-kuis', sangkulirang:'v-sangkulirang', s360:'v-s360'};
 const ARTS={"erau": {"cat": "kutai", "nama": "Erau", "sub": "Pesta adat Kesultanan Kutai", "img": "hero-kutai.jpg", "kicker": "SUKU KUTAI · TENGGARONG", "lead": "Erau adalah pesta adat Kesultanan Kutai Kartanegara Ing Martadipura yang digelar setiap tahun di Tenggarong. Awalnya Erau merupakan ritual pelaporan hasil bumi kepada sultan di istana.", "facts": [["10 hari", "Erau 2024 dan 2025 berlangsung 21 sampai 30 September"], ["2 naga", "Replika naga laki-laki dan perempuan diarak ke Kutai Lama"], ["Beseprah", "Makan bersama rakyat dan bangsawan"]], "body": "<h2>Ritual di dalam Erau</h2><p>Puncak Erau adalah <b>Mengulur Naga</b>. Dua replika naga, laki-laki dan perempuan, diarak menyusuri Sungai Mahakam dari Keraton menuju Kutai Lama. Setelah itu warga melakukan <b>Belimbur</b>, saling menyiram air sebagai lambang penyucian diri (Metro TV, 2025).</p>\n<p><b>Beseprah</b> adalah makan bersama di atas tikar panjang. Sultan dan rakyat duduk sejajar, sehingga tradisi ini menjadi simbol hubungan yang setara antara penguasa dan rakyat (Disdikbud Kukar, 2025).</p>\n<h2>Seni ukir tambak karang</h2><p>Kesultanan Kutai memiliki seni ukir <i>tambak karang</i> yang tampil saat Erau. Ukirannya memuat simbol identitas Kesultanan Kutai Kartanegara (Jurnal Kompetensi, Uniba Balikpapan).</p>", "refs": ["Metro TV. (2025, 30 September). Warga Tenggarong saksikan prosesi Mengulur Naga dan Belimbur di Festival Adat Erau 2025.", "Disdikbud Kutai Kartanegara. (2025). Tradisi Beseprah dalam Erau Adat 2025.", "Antara Kaltim. (2024). Pesta Adat Erau di Kukar siap digelar 21 sampai 30 September.", "Kompas TV. Tradisi Erau Benua Tuha di Desa Sabintulung."]}, "sandima": {"cat": "banjar", "nama": "Sandima", "sub": "Sandiwara Mamanda Samarinda", "img": null, "kicker": "SUKU BANJAR · SAMARINDA", "lead": "Sandima, singkatan dari Sandiwara Mamanda, adalah teater tradisional Banjar yang tumbuh di Samarinda. Kesenian ini dibawa masyarakat Banjar yang menetap di Kalimantan Timur, lalu menyesuaikan diri dengan budaya setempat.", "facts": [["2026", "Ditetapkan sebagai Warisan Budaya Takbenda Indonesia"], ["Sungai Kapih", "Daerah awal perkembangan mamanda di Samarinda"], ["Bahasa Banjar", "Dialog memakai bahasa Banjar Samarinda"]], "body": "<h2>Dari Banjar ke Samarinda</h2><p>Mamanda berasal dari Kalimantan Selatan. Kesenian ini masuk ke Kalimantan Timur melalui interaksi warga, baik lewat perdagangan, agama, maupun kesenian. Di Samarinda, mamanda pertama berkembang di Sungai Kapih, lalu menyebar seiring bermunculannya grup baru. Siaran TVRI Kalimantan Timur ikut menjaga kesenian ini bertahan puluhan tahun.</p>\n<h2>Jejak Banjar lainnya: amparan tatak</h2><p>Komunitas Banjar di Samarinda juga mewariskan <b>amparan tatak</b>, kue tradisional yang ditetapkan sebagai Warisan Budaya Takbenda pada 10 Oktober 2025 (RRI, 2025). Migrasi Banjar ke Kalimantan Timur tercatat sejak 1565 (detikKalimantan, 2026).</p>", "refs": ["RRI Samarinda. (2026). Sandima Samarinda lolos WBTB 2026.", "RRI Samarinda. (2026). Sandima Samarinda tumbuh dari akulturasi budaya.", "Rifandy, J. (2020). Kreativitas tingkilan grup Format dalam sandiwara mamanda di TVRI Samarinda. <i>Selonding</i>, 16(1).", "RRI. (2025). Amparan tatak sebagai branding baru kuliner Kota Samarinda.", "detikKalimantan. (2026). Sejarah berdirinya Kota Samarinda."]}, "nondoi": {"cat": "paser", "nama": "Belian Paser Nondoi", "sub": "Pesta adat bersih kampung", "img": null, "kicker": "SUKU PASER · PENAJAM PASER UTARA", "lead": "Pesta Belian Adat Paser Nondoi adalah ritual bersih kampung masyarakat Paser untuk keselamatan dan kesejahteraan warga. Ritual ini sudah dijalankan leluhur Paser jauh sebelum ada kerajaan di wilayah itu (Antara, 2023).", "facts": [["Tahunan", "Digelar di Rumah Adat Kuta Rekan Tatau, Penajam"], ["KEN", "Masuk Kharisma Event Nusantara"], ["2023", "Besoyong ditetapkan WBTB Kalimantan Timur"]], "body": "<h2>Besoyong: doa sebelum memulai</h2><p><b>Besoyong</b> adalah lantunan doa dan mantra dalam bahasa Paser sebelum suatu kegiatan, misalnya bersih desa, menanam, atau membuka hutan. Doa ini memohon berkah kepada Tuhan dan para leluhur. Dahulu Besoyong hanya dilantunkan di ruang keluarga. Kini ia tampil di depan publik dalam Pesta Belian Paser Nondoi.</p>\n<h2>Belian dalam kehidupan Paser</h2><p>Kata <i>belian</i> merujuk pada ritual yang dipimpin pemangku adat. Ada belian untuk pengobatan, tolak bala, hingga bersih kampung. Pada Paser Telake di Long Kali, misalnya, <b>Belian Betulah</b> dipadukan dengan selawat, tanda akulturasi dengan budaya Islam (Rahayu dkk., CALLS Unmul).</p>", "refs": ["Antara Kaltim. (2024). Kabupaten Penajam bersih-bersih kampung dalam Pesta Belian Nondoi.", "Antara Kaltim. (2023). Festival Belian Adat Paser Nondoi merupakan identitas masyarakat Paser.", "Rahayu, F. E. S., Wahyuni, I., & Vivian, Y. I. Belian Betulah: ritual tolak bala Suku Paser Telake di Kecamatan Long Kali. <i>CALLS</i>, Universitas Mulawarman.", "Widaty, C., dkk. Makna upacara balian dalam ritual pengobatan tradisional Suku Paser. <i>JSPH</i>, Universitas Negeri Malang."]}, "masjid": {"cat": "cagar", "nama": "Masjid Shiratal Mustaqiem", "sub": "Masjid tertua di Samarinda", "img": "img-cover-masjid.jpg", "kicker": "CAGAR BUDAYA · SAMARINDA SEBERANG", "lead": "Masjid Shiratal Mustaqiem berdiri di Kelurahan Mesjid, Samarinda Seberang, sejak 1881. Masjid kayu ini adalah masjid tertua di Kota Samarinda dan berstatus cagar budaya.", "facts": [["1881", "Tahun mulai dibangun"], ["21 m", "Menara segi delapan dari kayu ulin"], ["2003", "Juara kedua festival masjid bersejarah Indonesia"]], "body": "<h2>Dari kampung maksiat ke pusat ibadah</h2><p>Menurut kisah setempat, kawasan ini dulu dikenal sebagai tempat berjudi dan mabuk. Pembangunan masjid mengubahnya menjadi pusat ibadah, dan kawasan itu kini disebut Kampung Mesjid (Antara, 2025). Sultan Kutai Adji Mohammad Sulaiman tercatat menjadi imam pertama (GNFI, 2023).</p>\n<h2>Kayu ulin dari empat kampung</h2><p>Pilar, lantai, jendela, pintu, hingga atap sirap dibuat dari kayu ulin. Bahannya diambil dari empat kampung: Karang Mumus, Dondang, Kutai Lama, dan Loa Haur (detikKalimantan, mengutip Antara). Masjid ini direhabilitasi pada 2001.</p>\n<p>Gaya bangunannya memadukan beragam pengaruh budaya Nusantara (Rakhmadana &amp; Ridjal, Universitas Brawijaya). Ruang ini cocok untuk dijelajahi lewat foto 360° di masa mendatang.</p>", "refs": ["Antara. (2025). Panutan ulama ubah pusat maksiat jadi poros ibadah tertua Samarinda.", "detikKalimantan. 10 wisata religi Kalimantan Timur yang sarat makna sejarah.", "Good News From Indonesia. (2023, 12 Juni). Riwayat Masjid Shiratal Mustaqiem.", "Koran Jakarta. (2025, 31 Mei). Mengenal Masjid Shiratal Mustaqiem, ikon bersejarah di Samarinda.", "Rakhmadana, Y. P. N. A., &amp; Ridjal, A. M. Identitas visual Masjid Shiratal Mustaqiem Samarinda. Universitas Brawijaya."]}, "yupa": {"cat": "cagar", "nama": "Prasasti Yupa", "sub": "Jejak kerajaan tertua di Nusantara", "img": "img-cover-yupa.jpg", "kicker": "CAGAR BUDAYA · MUARA KAMAN, KUTAI KARTANEGARA", "lead": "Tujuh tiang batu bertulis atau yupa ditemukan di Bukit Berubus, Muara Kaman. Prasasti ini menjadi bukti tertulis tertua tentang kerajaan di wilayah Indonesia, yaitu Kutai Martapura atau Martadipura.", "facts": [["7 yupa", "Ditemukan pada 1879 dan 1940"], ["Abad 4–5", "Perkiraan usia aksara Pallawa"], ["3 raja", "Kundunga, Aswawarman, Mulawarman"]], "body": "<h2>Apa yang tertulis</h2><p>Yupa ditulis dalam bahasa Sanskerta dengan aksara Pallawa. Prasasti menyebut tiga raja secara berurutan: Kundunga, putranya Aswawarman, dan cucunya Mulawarman (Kaltimkece). Isinya banyak memuji Mulawarman, termasuk upacara persembahan emas kepada rakyat dan para dewa (Antara Kaltim).</p>\n<h2>Di mana yupa sekarang</h2><p>Yupa yang asli disimpan di Museum Nasional Indonesia, Jakarta. Kisahnya dapat dipelajari di Museum Mulawarman, Tenggarong (Antara Kaltim). Situs Kutai Martadipura di Muara Kaman masih terus dikaji, antara lain oleh Balitbangda Kutai Kartanegara.</p>", "refs": ["Sarip, M. (2020). Kajian etimologis Kerajaan (Kutai) Martapura di Muara Kaman, Kalimantan Timur. <i>Yupa: Historical Studies Journal</i>, 4(2), 50 sampai 61.", "Kaltimkece. Melacak Kundunga, pemimpin kerajaan Hindu tertua di Nusantara.", "Antara Kaltim. Museum Mulawarman, narator hidup sejarah dan budaya Kaltim.", "Antara Kaltim. Balitbangda Kukar kaji situs Kerajaan Kutai Martadipura."]}};
 function renderRuang(id){ const a=ARTS[id]; const w=document.getElementById('ruangwrap');
  w.innerHTML=`<p class="kicker">${a.kicker}</p><h1>${a.nama}</h1>${a.img?`<figure class="af" style="margin-top:0"><img src="${a.img}" alt=""></figure>`:''}<p class="lead">${a.lead}</p><div class="facts">${a.facts.map(f=>`<div><b>${f[0]}</b>${f[1]}</div>`).join('')}</div>${a.body}<div class="note">Model 3D, video 360°, dan kartu koleksi untuk ruang ini sedang disiapkan bersama komunitas pemilik budaya.</div><h3>Sumber</h3><ol class="refs">${a.refs.map(r=>`<li>${r}</li>`).join('')}</ol>`; }
@@ -1160,9 +1170,9 @@ function renderKat(cid){ const c=CATS.find(x=>x.id===cid); curCat=cid; const w=d
  c.rooms.forEach(r=>{ const R=ROOMS[r]; h+=`<div class="rm" data-go="${R.tabs[0][0]}"><div class="im" style="${R.img?`background-image:url(${R.img})`:'background:linear-gradient(150deg,#6b5a44,#3a2f24)'}"></div><div class="tx"><h3>${R.nama}</h3><p>${R.sub}. ${R.desc}</p><div class="mt">${R.media.map(m=>`<span>${m}</span>`).join('')}</div></div></div>`; });
  h+=`<div class="rm soon"><div class="im" style="background:repeating-linear-gradient(45deg,#e9e0cc,#e9e0cc 10px,#f1ead9 10px,#f1ead9 20px)"></div><div class="tx"><h3>Segera hadir</h3><p>${c.rooms.length?'Ruang budaya berikutnya':'Koleksi '+c.nama}, disiapkan bersama komunitas pemilik budaya.</p></div></div></div>`;
  h+=(c.about||''); w.innerHTML=h; }
-const SEC={beranda:'budaya',budaya:'budaya',ruang3d:'ruang3d',video:'video',koleksikartu:'koleksikartu',kontak:'kontak',jelajah:'ruang3d',gua3d:'ruang3d',karim3d:'ruang3d',v360:'video',k360:'video',m360:'video',kartu:'koleksikartu'};
+const SEC={beranda:'budaya',budaya:'budaya',ruang3d:'ruang3d',video:'video',koleksikartu:'koleksikartu',kontak:'kontak',jelajah:'ruang3d',gua3d:'ruang3d',karim3d:'ruang3d',sarok3d:'ruang3d',v360:'video',k360:'video',m360:'video',kartu:'koleksikartu'};
 const SECNAMA={budaya:'Jelajah Budaya!',ruang3d:'Jelajah 3D',video:'Video 360°',koleksikartu:'Koleksi Kartu',kontak:'Kontak'}; const SECGO={koleksikartu:'kartu'};
-const LEAF={jelajah:'Hutan Hudoq',gua3d:'Ceruk Tewet',karim3d:'Ceruk Karim',v360:'Hudoq',k360:'Karst Sangkulirang',m360:'Maestro Hudoq',kartu:'Hudoq'};
+const LEAF={jelajah:'Hutan Hudoq',sarok3d:'Gubang Sarok',gua3d:'Ceruk Tewet',karim3d:'Ceruk Karim',v360:'Hudoq',k360:'Karst Sangkulirang',m360:'Maestro Hudoq',kartu:'Hudoq'};
 function renderNav(name){
  document.body.classList.add('inroom');
  const room=VIEWROOM[name]; const cr=document.getElementById('crumb'); let h='';
@@ -1179,7 +1189,8 @@ const HUBS={
  ruang3d:{wide:1,k:'MENU',t:'Jelajah 3D',d:'Semua ruang virtual interaktif KlemantanImmersive.id. Masuk, berjalan, dan klik titik informasi di setiap ruang.',
   items:()=>[{go:'jelajah',img:'img-hutan3d.jpg',w:'img-wide-hutan.jpg',tone:'g',cta:'Masuk ruang',t:'Hutan Hudoq',d:'Hutan adat Dayak Modang dengan topeng Hudoq hasil fotogrametri dan Hudoq raksasa.',tags:['Suku Dayak','3D']},
    {go:'gua3d',img:'img-sangku-cover.jpg',w:'img-wide-tewet.jpg',tone:'k',cta:'Masuk ruang',t:'Ceruk Tewet',d:'Ceruk cap tangan di Karst Sangkulirang-Mangkalihat.',tags:['Cagar Budaya','Ruang 360°']},
-   {go:'karim3d',img:'img-karim-cover.jpg',w:'img-wide-karim.jpg',tone:'k',cta:'Masuk ruang',t:'Ceruk Karim',d:'Relung sempit dengan motif sarang lebah dan tapir.',tags:['Cagar Budaya','Ruang 360°']}],soon:'Ruang budaya berikutnya'},
+   {go:'karim3d',img:'img-karim-cover.jpg',w:'img-wide-karim.jpg',tone:'k',cta:'Masuk ruang',t:'Ceruk Karim',d:'Relung sempit dengan motif sarang lebah dan tapir.',tags:['Cagar Budaya','Ruang 360°']},
+   {go:'sarok3d',img:'img-sarok-cover.jpg',w:'img-wide-sarok.jpg',tone:'g',cta:'Masuk ruang',t:'Gubang Sarok',d:'Perahu hasil fotogrametri di aliran sungai hutan hujan yang teduh.',tags:['3D','Fotogrametri']}],soon:'Ruang budaya berikutnya'},
  video:{wide:1,k:'MENU',t:'Video 360°',d:'Semua video 360° dalam satu tempat. Seret layar untuk melihat ke segala arah. Untuk pengalaman imersif maksimal, gunakan kacamata VR dan tonton melalui YouTube.',
   items:()=>[{go:'v360',img:'hero-tonggaep.jpg',w:'img-wide-v-hudoq.jpg',tone:'g',cta:'Putar video',t:'Hudoq',d:'Virtual Experience Hudoq 360°, cuplikan 60 detik.',tags:['Suku Dayak']},
    {go:'k360',img:'img-sangku-tali.jpg',w:'img-wide-v-karst.jpg',tone:'k',cta:'Putar video',t:'Karst Sangkulirang',d:'Menyusuri sungai dan karst menuju ceruk cap tangan. Dua episode di YouTube.',tags:['Cagar Budaya']},
@@ -1225,8 +1236,9 @@ function go(name){
  document.querySelectorAll('.view').forEach(v=>v.classList.toggle('on', v.id===views[name]));
  renderNav(name); if(name==='beranda'){ renderCats(); renderMap(); initCine(); } if(name==='hudoq'){ renderStrip(); initScrolly(); } setTimeout(()=>reveal(views[name]),30); const vv=document.getElementById(views[name]); if(vv) vv.scrollTop=0;
  if(location.hash!=='#'+name) history.replaceState(null,'','#'+name);
- if(name==='jelajah'||name==='gua3d'||name==='karim3d'||name==='v360'||name==='k360'||name==='m360') autoFade(views[name]);
+ if(name==='jelajah'||name==='gua3d'||name==='karim3d'||name==='sarok3d'||name==='v360'||name==='k360'||name==='m360') autoFade(views[name]);
  if(name==='jelajah'){ initScene(); window._setWorld&&window._setWorld('hudoq'); window._infoIntro&&window._infoIntro(); }
+ if(name==='sarok3d'){ window._setWorld&&window._setWorld('sungai'); }
  if(name==='gua3d'||name==='karim3d'){ const rk=name==='karim3d'?'karim':'tewet'; if(!GUA.ready) GUA.room=rk; window._setWorld&&window._setWorld('gua'); window._guaSet&&window._guaSet(rk); }
  document.querySelectorAll('#wsw button').forEach(b=>b.classList.toggle('on',b.dataset.w===name));
  if(name==='kartu') renderKartu();
@@ -1472,9 +1484,9 @@ const PK=[
  const A=document.getElementById('bgmA'), B=document.getElementById('bgmB'), L=document.getElementById('bgmL'); if(!A) return;
  A.volume=0.35; let want=true, started=false;
  try{ if(localStorage.getItem('ki_bgm')==='0') want=false; }catch(e){}
- const MV=['v-jelajah','v-kartu']; const quiet=()=>{ const v=document.querySelector('.view.on'); const p3=document.getElementById('p360'); return !(v && MV.includes(v.id)) || (v.id==='v-jelajah'&&window._world==='gua') || (p3&&p3.classList.contains('on')); };
+ const MV=['v-jelajah','v-kartu']; const quiet=()=>{ const v=document.querySelector('.view.on'); const p3=document.getElementById('p360'); return !(v && MV.includes(v.id)) || (v.id==='v-jelajah'&&window._world!=='hudoq') || (p3&&p3.classList.contains('on')); };
  const ui=()=>{ const on=!A.paused; B.classList.toggle('on',on); L.textContent=on?'Suara hutan: nyala':'Suara hutan: mati'; };
- const tryPlay=()=>{ B.hidden=!MV.includes((document.querySelector('.view.on')||{}).id)||(window._world==='gua'&&document.getElementById('v-jelajah').classList.contains('on')); if(!want||quiet()) { A.pause(); ui(); return; } A.play().then(ui).catch(ui); };
+ const tryPlay=()=>{ B.hidden=!MV.includes((document.querySelector('.view.on')||{}).id)||(window._world!=='hudoq'&&document.getElementById('v-jelajah').classList.contains('on')); if(!want||quiet()) { A.pause(); ui(); return; } A.play().then(ui).catch(ui); };
  window._bgmSync=tryPlay;
  const first=()=>{ if(started) return; started=true; tryPlay(); };
  document.addEventListener('pointerdown',e=>{ if(e.target.closest('#bgmB')) return; first(); },{once:false,capture:true});
@@ -1596,8 +1608,148 @@ function guaInit(){ if(GUA.ready) return; GUA.ready=true;
   const w=W.clientWidth,h=W.clientHeight; els.forEach(e=>{ v3.copy(e.p).project(cam); const vis=v3.z<1&&Math.abs(v3.x)<1.05&&Math.abs(v3.y)<1.05; e.b.style.display=vis?'flex':'none'; if(vis) e.b.style.transform=`translate(${(v3.x+1)/2*w}px,${(1-v3.y)/2*h}px)`; });
  });
 }
+/* ---------- SUNGAI: GUBANG SAROK ---------- */
+const SNG={ready:false};
+function sngInit(){ if(SNG.ready) return; SNG.ready=true;
+ const W=document.getElementById('sng'), cv=document.getElementById('sngC'), LD=document.getElementById('sngLoad'), card=document.getElementById('sngCard'), hsB=document.getElementById('sngHS');
+ const mob=innerWidth<700||/Mobi|Android|iPhone/i.test(navigator.userAgent);
+ const r=new THREE.WebGLRenderer({canvas:cv,antialias:!mob,powerPreference:'high-performance'}); r.setPixelRatio(Math.min(devicePixelRatio,mob?1.25:1.6));
+ r.outputColorSpace=THREE.SRGBColorSpace; r.toneMapping=THREE.ACESFilmicToneMapping; r.toneMappingExposure=1.05;
+ const FOG=new THREE.Color(0x8fa38a);
+ const sc=new THREE.Scene(); sc.background=FOG.clone(); sc.fog=new THREE.FogExp2(FOG,0.018);
+ const cam=new THREE.PerspectiveCamera(70,1,0.1,400); cam.rotation.order='YXZ';
+ let seed=7; const rnd=()=>{ seed=(seed*16807)%2147483647; return seed/2147483647; };
+ const nz=(x,z)=>Math.sin(x*0.21+z*0.13)*0.6+Math.sin(x*0.07-z*0.19)*0.9+Math.sin(x*0.5+z*0.41)*0.25;
+ /* cahaya: langit pucat menembus kanopi */
+ sc.add(new THREE.HemisphereLight(0xe6eed8,0x3a4a2c,1.6));
+ const sun=new THREE.DirectionalLight(0xffe3b0,1.6); sun.position.set(-20,40,-12); sc.add(sun);
+ /* langit */
+ const sky=new THREE.Mesh(new THREE.SphereGeometry(300,24,16),new THREE.ShaderMaterial({side:THREE.BackSide,depthWrite:false,fog:false,
+  uniforms:{a:{value:new THREE.Color(0xf2f0dc)},b:{value:new THREE.Color(0x9fb79a)}},
+  vertexShader:'varying vec3 p; void main(){ p=normalize(position); gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.0); }',
+  fragmentShader:'uniform vec3 a; uniform vec3 b; varying vec3 p; void main(){ float t=smoothstep(-0.05,0.6,p.y); gl_FragColor=vec4(mix(b,a,t),1.0);\n#include <tonemapping_fragment>\n#include <colorspace_fragment>\n}'}));
+ sc.add(sky);
+ /* sungai mengalir ke arah +z */
+ const RW=12, RL=260;
+ const water=new THREE.Mesh(new THREE.PlaneGeometry(RW*3.2,RL,1,1),new THREE.ShaderMaterial({transparent:false,fog:false,
+  uniforms:{uT:{value:0},uSky:{value:new THREE.Color(0xb9c7a8)},uDeep:{value:new THREE.Color(0x1f2a17)},uMid:{value:new THREE.Color(0x4a4123)},uFog:{value:FOG},uSun:{value:new THREE.Vector3(-0.45,0.85,-0.27).normalize()},uCam:{value:new THREE.Vector3()}},
+  vertexShader:'varying vec3 wp; varying float vd; void main(){ vec4 w=modelMatrix*vec4(position,1.0); wp=w.xyz; vec4 mv=viewMatrix*w; vd=-mv.z; gl_Position=projectionMatrix*mv; }',
+  fragmentShader:`uniform float uT; uniform vec3 uSky,uDeep,uMid,uFog,uSun,uCam; varying vec3 wp; varying float vd;
+   float h(vec2 p){ float t=uT; return sin(p.x*1.7+p.y*0.6-t*1.1)*0.05+sin(p.y*2.3-t*2.6+p.x*0.4)*0.04+sin((p.x*0.9-p.y*3.1)+t*1.7)*0.025+sin(p.y*0.8-t*1.2)*0.06+sin(p.x*5.3+p.y*7.1-t*4.0)*0.01; }
+   float hash(vec2 p){ return fract(sin(dot(p,vec2(41.3,289.1)))*45758.5); }
+   float vn(vec2 p){ vec2 i=floor(p),f=fract(p); f=f*f*(3.0-2.0*f); return mix(mix(hash(i),hash(i+vec2(1,0)),f.x),mix(hash(i+vec2(0,1)),hash(i+vec2(1,1)),f.x),f.y); }
+   void main(){ vec2 p=wp.xz; float e=0.06; float hx=h(p+vec2(e,0.0))-h(p-vec2(e,0.0)); float hz=h(p+vec2(0.0,e))-h(p-vec2(0.0,e));
+    vec3 n=normalize(vec3(-hx/(2.0*e)*0.9,1.0,-hz/(2.0*e)*0.9)); vec3 v=normalize(uCam-wp);
+    float fr=0.04+0.96*pow(1.0-max(dot(n,v),0.0),5.0);
+    float edge=smoothstep(4.0,8.5,abs(wp.x));
+    float shade=0.55+0.45*smoothstep(0.35,0.75,vn(p*0.09+vec2(0.0,uT*0.004)))*(1.0-edge*0.7);
+    vec3 refl=mix(uSky*0.85,uDeep*1.2,edge*0.85)*shade;
+    vec3 body=mix(uMid,uDeep,0.35+edge*0.5);
+    vec3 c=mix(body,refl,clamp(fr*0.9,0.0,0.85));
+    vec3 hv=normalize(uSun+v); float sp=pow(max(dot(n,hv),0.0),220.0)*shade*shade*1.6; c+=vec3(1.0,0.93,0.78)*sp;
+    float st=vn(vec2(wp.x*1.6,wp.z*0.18-uT*0.9)); c+=smoothstep(0.86,0.98,st)*0.05*(1.0-edge);
+    float f=1.0-exp(-pow(vd*0.018,2.0)); gl_FragColor=vec4(mix(c,uFog,f),1.0);
+    #include <tonemapping_fragment>
+    #include <colorspace_fragment>
+   }`}));
+ water.rotation.x=-Math.PI/2; sc.add(water);
+ /* tepian sungai */
+ const bankH=(x,z)=>{ const ax=Math.abs(x); const s=Math.max(0,ax-RW*0.5); return -0.6+Math.min(s*0.55,3.2)+Math.max(0,s-6)*0.12+nz(x,z)*0.35*Math.min(1,s/3); };
+ const mkBank=side=>{ const g=new THREE.PlaneGeometry(44,RL,mob?44:88,mob?90:180); g.rotateX(-Math.PI/2); const P=g.attributes.position, col=[];
+  const mud=new THREE.Color(0x5a4a33), moss=new THREE.Color(0x3d5a2a), dark=new THREE.Color(0x263a1c), c=new THREE.Color();
+  for(let i=0;i<P.count;i++){ const x=P.getX(i)+side*(RW*0.5+20), z=P.getZ(i); P.setX(i,x); const y=bankH(x,z); P.setY(i,y);
+   const s=Math.abs(x)-RW*0.5; c.copy(mud).lerp(moss,Math.min(1,Math.max(0,(s-0.8)/2.5))).lerp(dark,Math.min(1,Math.max(0,(s-5)/10))); c.multiplyScalar(0.85+0.3*rnd()); col.push(c.r,c.g,c.b); }
+  g.setAttribute('color',new THREE.Float32BufferAttribute(col,3)); g.computeVertexNormals();
+  const m=new THREE.Mesh(g,new THREE.MeshLambertMaterial({vertexColors:true})); sc.add(m); };
+ mkBank(-1); mkBank(1);
+ /* tekstur daun dari kanvas */
+ const leafTex=(draw,w=256,h=256)=>{ const c=document.createElement('canvas'); c.width=w; c.height=h; draw(c.getContext('2d'),w,h); const t=new THREE.CanvasTexture(c); t.colorSpace=THREE.SRGBColorSpace; return t; };
+ const frond=leafTex((x,w,h)=>{ x.strokeStyle='#36551f'; x.lineWidth=12; x.beginPath(); x.moveTo(w/2,h); x.quadraticCurveTo(w*0.52,h*0.4,w*0.5,6); x.stroke();
+  for(let i=0;i<26;i++){ const t=i/26, y=h-t*h*0.95, l=(1-t)*w*0.46+12; for(const s of [-1,1]){ x.fillStyle=['#2f5523','#3e6a2b','#4d7a33'][i%3]; x.beginPath(); x.moveTo(w/2,y); x.quadraticCurveTo(w/2+s*l*0.6,y-18,w/2+s*l,y+14); x.quadraticCurveTo(w/2+s*l*0.5,y+4,w/2,y+5); x.fill(); } } });
+ const broad=leafTex((x,w,h)=>{ const g=x.createLinearGradient(0,0,w,0); g.addColorStop(0,'#2c4f1f'); g.addColorStop(0.5,'#4f7d33'); g.addColorStop(1,'#2c4f1f'); x.fillStyle=g;
+  x.beginPath(); x.moveTo(w/2,h); x.bezierCurveTo(-w*0.1,h*0.55,w*0.15,h*0.05,w/2,0); x.bezierCurveTo(w*0.85,h*0.05,w*1.1,h*0.55,w/2,h); x.fill(); x.strokeStyle='rgba(200,220,150,.5)'; x.lineWidth=3; x.beginPath(); x.moveTo(w/2,h); x.lineTo(w/2,6); x.stroke();
+  x.strokeStyle='rgba(20,40,10,.35)'; x.lineWidth=2; for(let i=1;i<10;i++){ const y=h-i*h/10.5; x.beginPath(); x.moveTo(w/2,y); x.lineTo(w*0.18,y-24); x.moveTo(w/2,y); x.lineTo(w*0.82,y-24); x.stroke(); } },128,256);
+ const leafMat=t=>new THREE.MeshLambertMaterial({map:t,alphaTest:0.5,side:THREE.DoubleSide});
+ /* pepohonan hutan hujan */
+ const trees=[]; const N=mob?70:130;
+ for(let i=0;i<N;i++){ const side=rnd()<0.5?-1:1; const z=-110+rnd()*220; const x=side*(RW*0.5+1.5+Math.pow(rnd(),1.6)*26); trees.push({x,z,side,h:14+rnd()*16,lean:Math.max(0,1-(Math.abs(x)-RW*0.5)/6)*(0.08+rnd()*0.16)}); }
+ const trunkG=new THREE.CylinderGeometry(0.22,0.45,1,7,1); trunkG.translate(0,0.5,0);
+ const trunks=new THREE.InstancedMesh(trunkG,new THREE.MeshLambertMaterial({color:0x5b5040}),N);
+ const blobG=new THREE.IcosahedronGeometry(1,1); const NB=N*4;
+ const blobs=new THREE.InstancedMesh(blobG,new THREE.MeshLambertMaterial({flatShading:true}),NB);
+ const M4=new THREE.Matrix4(), Q=new THREE.Quaternion(), E=new THREE.Euler(), S=new THREE.Vector3(), Pp=new THREE.Vector3(), C=new THREE.Color(); let bi=0;
+ trees.forEach((t,i)=>{ const y0=bankH(t.x,t.z)-0.2; const tilt=t.side*t.lean; E.set(0,rnd()*6,tilt); Q.setFromEuler(E); M4.compose(Pp.set(t.x,y0,t.z),Q,S.set(1+t.h/30,t.h,1+t.h/30)); trunks.setMatrixAt(i,M4);
+  const top=new THREE.Vector3(0,t.h,0).applyQuaternion(Q).add(Pp.set(t.x,y0,t.z));
+  for(let k=0;k<4;k++){ const r=3+rnd()*3.5; M4.compose(Pp.set(top.x+(rnd()-0.5)*5-t.side*(k===0?1.5:0),top.y-1+rnd()*2.5,top.z+(rnd()-0.5)*5),Q.identity(),S.set(r*1.2,r*0.55,r*1.2)); blobs.setMatrixAt(bi,M4);
+   C.setHSL(0.24+rnd()*0.08,0.35+rnd()*0.2,0.16+rnd()*0.12); blobs.setColorAt(bi,C); bi++; } });
+ sc.add(trunks,blobs);
+ /* semak, pakis, dan nipah di tepian */
+ const plant=(tex,n,wd,ht,near,far,L=5,tl=0.75)=>{ const g=new THREE.PlaneGeometry(wd,ht); g.translate(0,ht/2,0); const m=new THREE.InstancedMesh(g,leafMat(tex),n*L);
+  for(let i=0;i<n;i++){ const side=rnd()<0.5?-1:1; const z=-110+rnd()*220; const x=side*(RW*0.5+near+rnd()*(far-near)); const y=bankH(x,z)-0.1; const s=0.6+rnd()*0.8, ry=rnd()*6.28;
+   for(let k=0;k<L;k++){ E.set(-(tl*(0.7+rnd()*0.6)),ry+k*6.283/L+(rnd()-0.5)*0.4,0,'YXZ'); Q.setFromEuler(E); M4.compose(Pp.set(x,y,z),Q,S.set(s,s*(0.8+rnd()*0.4),s)); m.setMatrixAt(i*L+k,M4); } }
+  sc.add(m); };
+ plant(frond,mob?60:120,2.4,4.2,-0.2,6,6,0.85); plant(broad,mob?80:160,1.0,2.2,-0.4,4,4,0.5); plant(frond,mob?40:80,3.6,7.5,3,14,7,0.8); plant(broad,mob?40:80,1.6,3.6,1,9,5,0.35);
+ /* akar gantung (liana) */
+ const lianaPts=[]; for(let i=0;i<(mob?30:60);i++){ const t=trees[Math.floor(rnd()*N)]; const x=t.x-t.side*(1+rnd()*3), z=t.z+(rnd()-0.5)*4, top=bankH(t.x,t.z)+t.h*0.85, bot=Math.max(0.4,top-6-rnd()*10); lianaPts.push(x,top,z,x+(rnd()-0.5)*0.5,bot,z); }
+ const lg=new THREE.BufferGeometry(); lg.setAttribute('position',new THREE.Float32BufferAttribute(lianaPts,3)); sc.add(new THREE.LineSegments(lg,new THREE.LineBasicMaterial({color:0x3a4a2a})));
+ /* berkas cahaya di sela kanopi */
+ const rayT=leafTex((x,w,h)=>{ const g=x.createLinearGradient(0,0,w,0); g.addColorStop(0,'rgba(255,240,200,0)'); g.addColorStop(0.5,'rgba(255,240,200,1)'); g.addColorStop(1,'rgba(255,240,200,0)'); x.fillStyle=g; x.fillRect(0,0,w,h); const v=x.createLinearGradient(0,0,0,h); v.addColorStop(0,'rgba(0,0,0,0)'); v.addColorStop(0.25,'rgba(0,0,0,1)'); v.addColorStop(1,'rgba(0,0,0,0)'); x.globalCompositeOperation='destination-in'; x.fillStyle=v; x.fillRect(0,0,w,h); },64,256);
+ const rays=[]; for(let i=0;i<7;i++){ const m=new THREE.Mesh(new THREE.PlaneGeometry(1.6+rnd()*2.2,30),new THREE.MeshBasicMaterial({map:rayT,transparent:true,opacity:0.16,depthWrite:false,blending:THREE.AdditiveBlending,side:THREE.DoubleSide,fog:false}));
+  m.position.set((rnd()-0.5)*14,12,-24+rnd()*40); m.rotation.set(0,rnd()*Math.PI,0.45); m.userData.o=0.08+rnd()*0.12; m.userData.p=rnd()*6; sc.add(m); rays.push(m); }
+ /* serangga dan debu melayang */
+ const NP=mob?160:320, pp=new Float32Array(NP*3), ps=[]; for(let i=0;i<NP;i++){ pp[i*3]=(rnd()-0.5)*16; pp[i*3+1]=0.3+rnd()*7; pp[i*3+2]=-20+rnd()*34; ps.push(rnd()*6.28); }
+ const pg=new THREE.BufferGeometry(); pg.setAttribute('position',new THREE.BufferAttribute(pp,3));
+ const dotT=leafTex((x,w,h)=>{ const g=x.createRadialGradient(w/2,h/2,0,w/2,h/2,w/2); g.addColorStop(0,'rgba(255,245,215,1)'); g.addColorStop(1,'rgba(255,245,215,0)'); x.fillStyle=g; x.fillRect(0,0,w,h); },32,32);
+ sc.add(new THREE.Points(pg,new THREE.PointsMaterial({size:0.06,map:dotT,transparent:true,opacity:0.6,depthWrite:false,blending:THREE.AdditiveBlending})));
+ /* daun hanyut */
+ const NF=mob?24:48, fl=new THREE.InstancedMesh(new THREE.PlaneGeometry(0.22,0.4).rotateX(-Math.PI/2),new THREE.MeshLambertMaterial({map:broad,alphaTest:0.5,side:THREE.DoubleSide}),NF); const fd=[];
+ for(let i=0;i<NF;i++) fd.push({x:(rnd()-0.5)*9,z:-40+rnd()*80,r:rnd()*6,s:0.6+rnd()*0.8}); sc.add(fl);
+ /* gubang sarok */
+ const boat=new THREE.Group(); sc.add(boat); const BL=8; let boatTop=new THREE.Vector3(0,1.2,0);
+ const placeBoat=g=>{ const lev=new THREE.Group(); lev.add(g); const n=new THREE.Vector3(0.0685,1,-0.328).normalize(); lev.quaternion.setFromUnitVectors(n,new THREE.Vector3(0,1,0));
+  const hold=new THREE.Group(); hold.add(lev); hold.updateMatrixWorld(true); const b=new THREE.Box3().setFromObject(hold), s=b.getSize(new THREE.Vector3()), c=b.getCenter(new THREE.Vector3());
+  const k=BL/Math.max(s.x,s.z); lev.position.sub(c); hold.scale.setScalar(k); hold.position.y=(s.y*0.5-s.y*0.44)*k;
+  if(s.z>s.x) hold.rotation.y=Math.PI/2; hold.rotation.y+=Math.PI/2;
+  g.traverse(o=>{ if(o.isMesh){ o.material.side=THREE.DoubleSide; if(o.material.map) o.material.map.anisotropy=r.capabilities.getMaxAnisotropy(); o.material.roughness=0.95; o.material.metalness=0; if(o.material.map){ o.material.emissiveMap=o.material.map; o.material.emissive=new THREE.Color(0xffffff); o.material.emissiveIntensity=0.45; } } });
+  boat.clear(); boat.add(hold); boatTop.set(0,(s.y*0.56)*k*0.9,0); };
+ const ld=new GLTFLoader(); ld.setMeshoptDecoder(MeshoptDecoder);
+ ld.load('sarok-lite.mp4',g=>{ placeBoat(g.scene); LD.classList.add('gone'); setTimeout(()=>ld.load('sarok.mp4',g2=>placeBoat(g2.scene)),3500); },e=>{ if(e.lengthComputable) document.getElementById('sngPct').textContent=Math.round(e.loaded/e.total*100)+'%'; },()=>{ document.getElementById('sngPct').textContent='Gagal memuat model'; });
+ boat.position.set(0,0,0);
+ /* kamera: berdiri di atas aliran sungai, bisa melihat 360° */
+ let yaw=0.38, pitch=-0.15, tYaw=yaw, tPitch=pitch, baseFov=70, tFov=70, auto=true, drag=false, px=0, py=0, moved=0; const keys={};
+ const P0=new THREE.Vector3(2.4,1.75,6.0), pTar=P0.clone();
+ const lookAt=p=>{ const v=p.clone().sub(cam.position).normalize(); return [Math.atan2(-v.x,-v.z), Math.asin(Math.max(-1,Math.min(1,v.y)))]; };
+ const open=()=>{ card.hidden=false; const [y,pt]=lookAt(boat.position.clone().add(new THREE.Vector3(0,0.4,0))); let dy=y-tYaw; dy=Math.atan2(Math.sin(dy),Math.cos(dy)); tYaw+=dy; tPitch=pt; tFov=baseFov*0.75; auto=false; W.classList.add('focus'); };
+ const closeCard=()=>{ card.hidden=true; W.classList.remove('focus'); tFov=baseFov; };
+ hsB.onclick=e=>{ e.stopPropagation(); open(); }; document.getElementById('sngX').onclick=closeCard;
+ const size=()=>{ const w=W.clientWidth,h=W.clientHeight; if(!w) return; r.setSize(w,h,false); cam.aspect=w/h; baseFov=w<h?92:72; tFov=W.classList.contains('focus')?baseFov*0.75:baseFov; cam.updateProjectionMatrix(); };
+ new ResizeObserver(size).observe(W); size(); window._sngR=size;
+ cv.addEventListener('pointerdown',e=>{ drag=true; auto=false; moved=0; px=e.clientX; py=e.clientY; cv.setPointerCapture(e.pointerId); });
+ cv.addEventListener('pointermove',e=>{ if(!drag) return; const dx=e.clientX-px, dy=e.clientY-py; moved+=Math.abs(dx)+Math.abs(dy); if(moved>40&&!card.hidden) closeCard(); const k=cam.fov/baseFov*0.0042; tYaw+=dx*k; tPitch=Math.max(-1.2,Math.min(1.25,tPitch+dy*k)); px=e.clientX; py=e.clientY; });
+ const up=()=>drag=false; cv.addEventListener('pointerup',up); cv.addEventListener('pointercancel',up);
+ cv.addEventListener('wheel',e=>{ e.preventDefault(); baseFov=Math.max(38,Math.min(92,baseFov+e.deltaY*0.03)); tFov=W.classList.contains('focus')?baseFov*0.75:baseFov; },{passive:false});
+ const step=(f,s)=>{ const fw=new THREE.Vector3(-Math.sin(yaw),0,-Math.cos(yaw)), rt=new THREE.Vector3(Math.cos(yaw),0,-Math.sin(yaw)); pTar.addScaledVector(fw,f).addScaledVector(rt,s);
+  pTar.x=Math.max(-RW*0.42,Math.min(RW*0.42,pTar.x)); pTar.z=Math.max(-40,Math.min(40,pTar.z)); const dx=pTar.x, dz=pTar.z; if(Math.abs(dx)<1.6&&Math.abs(dz)<BL*0.6){ pTar.x=Math.sign(dx||1)*1.6; } auto=false; };
+ W.querySelectorAll('.gua-mv button').forEach(b=>{ let t=null; const m={f:[1,0],b:[-1,0],l:[0,-1],r:[0,1]}[b.dataset.mv]; const st=()=>step(m[0]*0.12,m[1]*0.12); b.onpointerdown=e=>{ e.preventDefault(); st(); t=setInterval(st,30); }; const en=()=>{ clearInterval(t); }; b.onpointerup=en; b.onpointerleave=en; b.onpointercancel=en; });
+ addEventListener('keydown',e=>{ if(W.hidden) return; keys[e.key.toLowerCase()]=true; }); addEventListener('keyup',e=>{ keys[e.key.toLowerCase()]=false; });
+ const v3=new THREE.Vector3(), ck=new THREE.Clock();
+ r.setAnimationLoop(()=>{ if(W.hidden||document.hidden||!document.getElementById('v-jelajah').classList.contains('on')) return; const dt=Math.min(.05,ck.getDelta()), t=ck.elapsedTime;
+  const sp=3.2*dt; if(keys['w']||keys['arrowup']) step(sp,0); if(keys['s']||keys['arrowdown']) step(-sp,0); if(keys['a']||keys['arrowleft']) step(0,-sp); if(keys['d']||keys['arrowright']) step(0,sp);
+  if(auto) tYaw+=dt*0.035;
+  yaw+=(tYaw-yaw)*Math.min(1,dt*6); pitch+=(tPitch-pitch)*Math.min(1,dt*6); cam.fov+=(tFov-cam.fov)*Math.min(1,dt*4); cam.updateProjectionMatrix();
+  P0.lerp(pTar,Math.min(1,dt*3)); cam.position.set(P0.x,P0.y+Math.sin(t*0.7)*0.03,P0.z); cam.rotation.set(pitch,yaw,Math.sin(t*0.5)*0.004);
+  boat.position.y=Math.sin(t*0.9)*0.035; boat.rotation.z=Math.sin(t*0.7)*0.012; boat.rotation.x=Math.sin(t*0.55+1)*0.008;
+  water.material.uniforms.uT.value=t; water.material.uniforms.uCam.value.copy(cam.position);
+  const a=pg.attributes.position.array; for(let i=0;i<NP;i++){ a[i*3+1]+=Math.sin(t*0.6+ps[i])*0.002; a[i*3]+=Math.cos(t*0.4+ps[i])*0.0015; } pg.attributes.position.needsUpdate=true;
+  rays.forEach(m=>m.material.opacity=m.userData.o*(0.7+0.3*Math.sin(t*0.3+m.userData.p)));
+  fd.forEach((f,i)=>{ f.z+=dt*0.9*f.s; if(f.z>40) f.z=-40; Q.setFromEuler(E.set(0,f.r+t*0.05,0)); M4.compose(Pp.set(f.x+Math.sin(t*0.3+i)*0.2,0.03,f.z),Q,S.set(f.s,1,f.s)); fl.setMatrixAt(i,M4); }); fl.instanceMatrix.needsUpdate=true;
+  r.render(sc,cam);
+  v3.copy(boatTop).add(boat.position).project(cam); const w=W.clientWidth,h=W.clientHeight; const vis=v3.z<1&&Math.abs(v3.x)<1.05&&Math.abs(v3.y)<1.05&&card.hidden;
+  hsB.style.display=vis?'flex':'none'; if(vis) hsB.style.transform=`translate(${(v3.x+1)/2*w}px,${(1-v3.y)/2*h}px)`;
+ });
+}
 (function(){ const V=document.getElementById('v-jelajah'), G=document.getElementById('gua'); if(!V||!G) return; window._world='hudoq';
- const setW=w=>{ window._world=w; V.classList.toggle('gua-on',w==='gua'); G.hidden=w!=='gua';  if(w==='gua'){ if(window._pkClose) window._pkClose(); guaInit(); setTimeout(()=>window._guaR&&window._guaR(),30); } window._bgmSync&&window._bgmSync(); };
+ const SG=document.getElementById('sng'); const setW=w=>{ window._world=w; V.classList.toggle('gua-on',w!=='hudoq'); G.hidden=w!=='gua'; if(SG) SG.hidden=w!=='sungai'; if(w!=='hudoq'&&window._pkClose) window._pkClose(); if(w==='gua'){ guaInit(); setTimeout(()=>window._guaR&&window._guaR(),30); } if(w==='sungai'){ sngInit(); setTimeout(()=>window._sngR&&window._sngR(),30); } window._bgmSync&&window._bgmSync(); };
  document.querySelectorAll('#wsw button').forEach(b=>b.onclick=()=>go(b.dataset.w)); window._setWorld=setW;
 })();
 /* ---------- SCROLLYTELLING ---------- */
@@ -2164,7 +2316,7 @@ function initScene(){
  { const jb=document.getElementById('jumpC'); if(jb) jb.onclick=()=>window._goCenter(0.9); }
  { const K=window._hk={}; const typing=e=>/INPUT|TEXTAREA|SELECT/.test((e.target||{}).tagName||'');
    const M={arrowup:'w',arrowdown:'s',arrowleft:'a',arrowright:'d',w:'w',a:'a',s:'s',d:'d'};
-   addEventListener('keydown',e=>{ const k=M[e.key.toLowerCase()]; if(!k||typing(e)||!document.getElementById('v-jelajah').classList.contains('on')||window._world==='gua') return; K[k]=true; e.preventDefault(); });
+   addEventListener('keydown',e=>{ const k=M[e.key.toLowerCase()]; if(!k||typing(e)||!document.getElementById('v-jelajah').classList.contains('on')||window._world!=='hudoq') return; K[k]=true; e.preventDefault(); });
    addEventListener('keyup',e=>{ const k=M[e.key.toLowerCase()]; if(k) K[k]=false; }); addEventListener('blur',()=>{ for(const k in K) K[k]=false; });
    document.querySelectorAll('#hmv button').forEach(b=>{ const k=b.dataset.k; const on=e=>{ e.preventDefault(); K[k]=true; }, off=()=>{ K[k]=false; }; b.onpointerdown=on; b.onpointerup=off; b.onpointerleave=off; b.onpointercancel=off; });
  }
@@ -2191,7 +2343,7 @@ function initScene(){
  window.addEventListener('resize',resize); resize();
  const clock=new THREE.Clock();
  renderer.setAnimationLoop(()=>{
-  if(document.hidden || !document.getElementById('v-jelajah').classList.contains('on') || window._world==='gua'){ window._lt=undefined; return; }
+  if(document.hidden || !document.getElementById('v-jelajah').classList.contains('on') || window._world!=='hudoq'){ window._lt=undefined; return; }
   { const now=performance.now(); const ft=now-(window._pt||now); window._pt=now; window._fa=(window._fa||16)*0.95+ft*0.05;
     if(!window._adj) window._adj=now; if(now-window._adj>2000){ window._adj=now; if(window._fa>38 && window._pr>0.7){ window._pr=Math.max(0.7,window._pr-0.15); renderer.setPixelRatio(window._pr); } } }
   if(window._shadowDirty>0){ renderer.shadowMap.needsUpdate=true; window._shadowDirty--; }
