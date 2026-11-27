@@ -347,6 +347,7 @@ body.inroom main{top:104px}
 @media(hover:none){.wb-go{opacity:1;transform:none}}
 @media(max-width:640px){.wb{height:auto;min-height:170px}.wb-tx{max-width:100%;padding:20px 20px!important}.wb-g::after{background:linear-gradient(90deg,rgba(10,32,24,.92),rgba(14,46,34,.55))}.wb-k::after{background:linear-gradient(90deg,rgba(8,8,8,.9),rgba(14,12,10,.5))}.wb-go{position:static;align-self:flex-start;margin-top:10px;padding:6px 12px}}
 .mediabar{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 6px}.mediabar button{border:2px solid var(--emas);background:#fff8e6;color:#4a3410;font-weight:800;font-size:13px;padding:8px 14px;border-radius:20px;cursor:pointer}.mediabar button:hover{background:var(--emas)}
+.wb-lock{cursor:default!important;opacity:.7}.wb-lock .wb-im{filter:grayscale(.7)}.wb-lock .wb-go{background:rgba(0,0,0,.45)!important;color:#fff!important;opacity:1!important;transform:none!important}
 .bts{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;margin:14px 0}.bts figure{margin:0;border-radius:14px;overflow:hidden;background:#fff}.bts img{width:100%;height:150px;object-fit:cover;display:block}.bts figcaption{font-size:12px;padding:7px 10px;color:var(--abu)}
 .kontak-box{background:#fff;border-radius:18px;padding:18px 20px;margin-top:14px;line-height:1.6}.kontak-box b{display:block;color:var(--hutan)}
 .ctas{display:flex;flex-wrap:wrap;gap:10px}
@@ -949,7 +950,7 @@ body.inroom main{top:104px}
  <label class="envload">⬆ Muat lingkungan Blender (.glb)<input type="file" accept=".glb,.gltf" id="envIn"></label>
  <div class="fogcover" id="fogcover"><div class="fc-in"><div class="fc-t">Bersiap memasuki hutan Hudoq</div><div class="fc-s" id="fc-s">Menyiapkan topeng Hudoq… 0%</div><div class="fc-track"><i id="fc-fill"></i></div></div></div>
  <div class="loadbar done" id="loadbar"><span id="loadtxt">Memuat model 3D asli… 0%</span><div class="track"><i id="loadfill"></i></div></div>
- <div class="wsw" id="wsw"><button class="on" data-w="jelajah">🌳 Hutan Hudoq</button><button data-w="gua3d">✋ Ceruk Tewet</button><button data-w="karim3d">✋ Ceruk Karim</button><button data-w="sarok3d">🛶 Gubang Sarok</button></div>
+ <div class="wsw" id="wsw"><button class="on" data-w="jelajah">🌳 Hutan Hudoq</button><button data-w="gua3d">✋ Ceruk Tewet</button><button data-w="karim3d">✋ Ceruk Karim</button></div>
  <div class="gua" id="gua" hidden>
   <canvas id="guaC"></canvas>
   <div id="guaHS"></div>
@@ -1190,7 +1191,7 @@ const HUBS={
   items:()=>[{go:'jelajah',img:'img-hutan3d.jpg',w:'img-wide-hutan.jpg',tone:'g',cta:'Masuk ruang',t:'Hutan Hudoq',d:'Hutan adat Dayak Modang dengan topeng Hudoq hasil fotogrametri dan Hudoq raksasa.',tags:['Suku Dayak','3D']},
    {go:'gua3d',img:'img-sangku-cover.jpg',w:'img-wide-tewet.jpg',tone:'k',cta:'Masuk ruang',t:'Ceruk Tewet',d:'Ceruk cap tangan di Karst Sangkulirang-Mangkalihat.',tags:['Cagar Budaya','Ruang 360°']},
    {go:'karim3d',img:'img-karim-cover.jpg',w:'img-wide-karim.jpg',tone:'k',cta:'Masuk ruang',t:'Ceruk Karim',d:'Relung sempit dengan motif sarang lebah dan tapir.',tags:['Cagar Budaya','Ruang 360°']},
-   {go:'sarok3d',img:'img-sarok-cover.jpg',w:'img-wide-sarok.jpg',tone:'g',cta:'Masuk ruang',t:'Gubang Sarok',d:'Perahu hasil fotogrametri di aliran sungai hutan hujan yang teduh.',tags:['3D','Fotogrametri']}],soon:'Ruang budaya berikutnya'},
+   {lock:1,go:'sarok3d',img:'img-sarok-cover.jpg',w:'img-wide-sarok.jpg',tone:'g',cta:'Segera hadir',t:'Gubang Sarok',d:'Perahu hasil fotogrametri di aliran sungai. Kisah dan fungsi perahu sedang dilengkapi bersama narasumber.',tags:['3D','Fotogrametri','Segera hadir']}],soon:'Ruang budaya berikutnya'},
  video:{wide:1,k:'MENU',t:'Video 360°',d:'Semua video 360° dalam satu tempat. Seret layar untuk melihat ke segala arah. Untuk pengalaman imersif maksimal, gunakan kacamata VR dan tonton melalui YouTube.',
   items:()=>[{go:'v360',img:'hero-tonggaep.jpg',w:'img-wide-v-hudoq.jpg',tone:'g',cta:'Putar video',t:'Hudoq',d:'Virtual Experience Hudoq 360°, cuplikan 60 detik.',tags:['Suku Dayak']},
    {go:'k360',img:'img-sangku-tali.jpg',w:'img-wide-v-karst.jpg',tone:'k',cta:'Putar video',t:'Karst Sangkulirang',d:'Menyusuri sungai dan karst menuju ceruk cap tangan. Dua episode di YouTube.',tags:['Cagar Budaya']},
@@ -1203,8 +1204,8 @@ const HUBS={
 function renderHub(name){ const H=HUBS[name]; const w=document.getElementById('katwrap');
  let h=`<p class="kicker" style="font-size:11px;font-weight:800;letter-spacing:.12em;color:var(--tanah);margin:0 0 6px">${H.k}</p><h2>${H.t}</h2><p class="sub">${H.d}</p>`;
  if(H.kontak){ h+=`<div class="kontak-box"><b>Sekretariat Budaya Etam</b><b>CV. Ruang Kreatif Nusantara</b>Jl. KH Harus Nafsi, Perumahan Gemilang 1 Blok P No. 10, RT 23, Kel. Rapak Dalam, Kec. Loa Janan Ilir, Kota Samarinda, Kalimantan Timur<div style="margin-top:12px"><a class="sf-ig" href="https://www.instagram.com/budayaetam/" target="_blank" rel="noopener">Instagram @budayaetam</a></div></div>
-  <h3 style="margin-top:26px">Di balik layar</h3><p class="sub">Proses produksi dan uji pengguna KlemantanImmersive.id.</p><div class="bts">${[['img-bts-pengarahan.jpg','Produksi ruang Hudoq'],['img-bts-wawancara.jpg','Wawancara narasumber Hudoq'],['img-sangku-tim-tewet.jpg','Tim di Ceruk Tewet, 2024'],['img-sangku-perahu.jpg','Menuju karst Sangkulirang-Mangkalihat'],['img-sangku-tali.jpg','Medan ekspedisi karst'],['img-uji-vr.jpg','Uji pengguna VR'],['img-uji-kelas.jpg','Uji pengguna di kelas']].map(x=>`<figure><img src="${x[0]}" alt="${x[1]}" loading="lazy"><figcaption>${x[1]}</figcaption></figure>`).join('')}</div>`; w.innerHTML=h; return; }
- if(H.wide){ w.classList.add('widehub'); let i=0; h+='<div class="wband">'; H.items().forEach(it=>{ i++; h+=`<div class="wb wb-${it.tone||'g'}" data-go="${it.go}"><div class="wb-im" style="background-image:url(${it.w||it.img})"></div><div class="wb-tx"><span class="wb-no">0${i}</span><h3>${it.t}</h3><p>${it.d}</p><div class="wb-tags">${(it.tags||[]).map(m=>`<span>${m}</span>`).join('')}</div><span class="wb-go">${it.cta||'Buka'} →</span></div></div>`; });
+  <h3 style="margin-top:26px">Di balik layar</h3><p class="sub">Proses produksi dan uji pengguna KlemantanImmersive.id.</p><div class="bts">${[['img-bts-pengarahan.jpg','Produksi ruang Hudoq'],['img-bts-wawancara.jpg','Wawancara narasumber Hudoq'],['img-bts-h_bersama.jpg','Tim bersama Frans Jiu Luay, Agustus 2024'],['img-bts-h_kamera.jpg','Perekaman penjelasan topeng Hudoq'],['img-bts-h_insta.jpg','Wawancara maestro dengan kamera 360°'],['img-bts-h_penari.jpg','Perekaman penari Hudoq di hutan'],['img-sangku-tim-tewet.jpg','Tim di Ceruk Tewet, 2024'],['img-sangku-perahu.jpg','Menuju karst Sangkulirang-Mangkalihat'],['img-bts-s_brief.jpg','Menyiapkan kamera 360° di perahu'],['img-bts-s_perahu.jpg','Perekaman 360° di depan dinding karst'],['img-sangku-tali.jpg','Medan ekspedisi karst'],['img-uji-vr.jpg','Uji pengguna VR'],['img-uji-kelas.jpg','Uji pengguna di kelas']].map(x=>`<figure><img src="${x[0]}" alt="${x[1]}" loading="lazy"><figcaption>${x[1]}</figcaption></figure>`).join('')}</div>`; w.innerHTML=h; return; }
+ if(H.wide){ w.classList.add('widehub'); let i=0; h+='<div class="wband">'; H.items().forEach(it=>{ i++; h+=`<div class="wb wb-${it.tone||'g'}${it.lock?' wb-lock':''}"${it.lock?'':` data-go="${it.go}"`}><div class="wb-im" style="background-image:url(${it.w||it.img})"></div><div class="wb-tx"><span class="wb-no">0${i}</span><h3>${it.t}</h3><p>${it.d}</p><div class="wb-tags">${(it.tags||[]).map(m=>`<span>${m}</span>`).join('')}</div><span class="wb-go">${it.lock?'🔒 '+it.cta:(it.cta||'Buka')+' →'}</span></div></div>`; });
   if(H.soon) h+=`<div class="wb wb-soon"><div class="wb-tx"><span class="wb-no">+</span><h3>Segera hadir</h3><p>${H.soon}, disiapkan bersama komunitas pemilik budaya.</p></div></div>`;
   h+='</div>'; w.innerHTML=h; return; }
  w.classList.remove('widehub');
@@ -1223,6 +1224,7 @@ document.querySelectorAll('.uitog').forEach(b=>b.onclick=()=>{ const v=b.closest
 let fadeT=null;
 function autoFade(id){ clearTimeout(fadeT); const v=document.getElementById(id); if(!v) return; v.querySelectorAll('.hint,.anot').forEach(e=>e.classList.remove('fade')); fadeT=setTimeout(()=>v.querySelectorAll('.hint,.anot').forEach(e=>e.classList.add('fade')),7000); }
 function go(name){
+ if(name==='sarok3d') name='ruang3d';
  try{ if(window.gtag&&name) gtag('event','buka_halaman',{halaman:name}); }catch(e){}
  setTimeout(()=>window._bgmSync&&window._bgmSync(),0);
  if(window._pkClose) window._pkClose(); if(window._pkGal) window._pkGal(false);
